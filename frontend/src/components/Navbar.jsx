@@ -57,9 +57,10 @@ const Navbar = () => {
         <li className="nav-item">
           <Link className="nav-link fs-5" to="/admin/allDoctors">All Doctors</Link>
         </li>
-        <li className="nav-item mx-3">
-          <Link className="nav-link fs-5" to="/query">Ask a Question</Link>
+        <li className="nav-item">
+          <Link className="nav-link fs-5" to="/">Add Doctor</Link>
         </li>
+        
       </>
     ); 
   }
@@ -71,7 +72,7 @@ const Navbar = () => {
           <Link className="nav-link fs-5" to="/login">Log In</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link fs-5" to="/doctorLogin">Doctor Log In</Link>
+          <Link className="nav-link fs-5" to="/doctorLogin">Doctor Panel</Link>
         </li>
       </>
     );
@@ -108,12 +109,24 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav mx-3">
               {authLinks}
+              { !adminToken &&(
+                <>
               <li className="nav-item mx-3">
                 <Link className="nav-link fs-5" to="/about">About-Us</Link>
               </li>
               <li className="nav-item mx-3">
                 <Link className="nav-link fs-5" to="/contact">Contact-Us</Link>
               </li>
+              </>
+              )}
+
+              { adminToken &&(
+              <li className="nav-item mx-3">
+                <Link className="nav-link fs-5" to="/about">All Queries</Link>
+              </li>
+              
+              )}
+              
               {!token && !doctorToken && !adminToken &&(
               <li className="nav-item mx-3">
                 <Link className="nav-link fs-5" to="/admin/login">Admin Panel</Link>

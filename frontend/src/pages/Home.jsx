@@ -15,6 +15,7 @@ import hermato from '../assets/hermato.png'
 import psychia from '../assets/psychia.jpg'
 import home2 from '../assets/phy-patient-1.jpg'
 import home3 from '../assets/phy-pat-2.jpg'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
 
@@ -132,7 +133,7 @@ const Home = () => {
             </div>
                 <br />
           
-          <a className="fs-4">View All Specialist..</a> 
+          <Link to='/appointments' className="fs-4">View All Specialist..</Link> 
   
         
         {/* 2nd big div */}

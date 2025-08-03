@@ -142,12 +142,7 @@ const AdminLogin = () => {
                                     value="Login"
                                     className="login-btn btn btn-primary"
                                 />
-                            )}
-
-                            <Link to="/doctorLogin" style={{ color:'white', fontSize: '18px', fontWeight: 'bold' }}>
-                            Login as Doctor..
-                            </Link>
-                            
+                            )}        
                         </form>
                     </div>
             </div>
