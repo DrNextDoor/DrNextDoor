@@ -10,7 +10,6 @@ const DoctorCard = ({doctor}) => {
   return (
     <>
       <div className="card">
-
         <img src={`${profileImage}`} className="card-img-top" alt="..." style={{height: '95%', width: '80%'}} />
         <div className="card-body">
             <h5 className="card-title">{name}</h5>
@@ -18,7 +17,6 @@ const DoctorCard = ({doctor}) => {
             <Link to={`/admin/doctors/${_id}`} className="btn btn-primary">See Details</Link>
         </div>
       </div>
-      
     </>
   )
 }

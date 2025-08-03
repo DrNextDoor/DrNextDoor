@@ -77,7 +77,6 @@ const DrDetailsAdmin = () => {
         <h3>Doctor Information</h3>
         <p><strong>Name:</strong> {doctor.name}</p>
         <p><strong>Email:</strong> {doctor.email}</p>
-        <p><strong>Degree:</strong> {doctor.degree}</p>
         <p><strong>Specialty:</strong> {doctor.specialty}</p>
         <p><strong>Experience:</strong> {doctor.experience}</p>
         <p><strong>Bio:</strong> {doctor.bioMessage}</p>
