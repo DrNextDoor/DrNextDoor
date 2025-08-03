@@ -5,7 +5,6 @@ const Book = ({doctor}) => {
 
     if (!doctor) return null;
     let { _id, profileImage, name, specialization } = doctor
-    console.log(profileImage)
 
   return (
     <>

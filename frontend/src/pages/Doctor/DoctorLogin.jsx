@@ -184,8 +184,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaUserMd } from 'react-icons/fa';
-import loginBack from './../assets/login-back.jpg';
-import { useAuth } from '../context/AuthPatient';
+import loginBack from './../../assets/login-back.jpg';
+import { useAuth } from '../../context/AuthPatient';
 
 const DoctorLogin = () => {
   const navigate = useNavigate();

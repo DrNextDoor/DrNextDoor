@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { API } from '../utils/utils'
-import { useAuth } from '../context/AuthPatient'
-import loginBack from './../assets/login-back.jpg'
+import { API } from '../../utils/utils'
+import { useAuth } from '../../context/AuthPatient'
+import loginBack from './../../assets/login-back.jpg'
 import { Link } from 'react-router-dom'
 
 const PatientProfile = () => {

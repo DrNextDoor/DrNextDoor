@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { API } from './../utils/utils'
+import { API } from './../../utils/utils'
 import { useNavigate } from 'react-router-dom'
-import loginBack from './../assets/login-back.jpg'
+import loginBack from './../../assets/login-back.jpg'
 import { FaHospitalUser } from "react-icons/fa";
-import { useAuth } from '../context/AuthPatient'
+import { useAuth } from '../../context/AuthPatient'
 
 
 const Login = () => {

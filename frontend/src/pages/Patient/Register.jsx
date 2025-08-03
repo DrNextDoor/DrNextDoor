@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
-import { API } from './../utils/utils'
-import loginBack from './../assets/login-back.jpg'
+import { API } from '../../utils/utils'
+import loginBack from './../../assets/login-back.jpg'
 import { FaHospitalUser } from "react-icons/fa";
-import defaultImage from './../assets/default_patient.png'
+import defaultImage from './../../assets/default_patient.png'
 
 const Register = () => {
 

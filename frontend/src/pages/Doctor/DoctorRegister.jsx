@@ -326,7 +326,7 @@ export default DoctorRegister;*/
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import loginBack from './../assets/login-back.jpg';
+import loginBack from './../../assets/login-back.jpg';
 import { FaUserMd } from 'react-icons/fa';
 
 const DoctorRegister = () => {

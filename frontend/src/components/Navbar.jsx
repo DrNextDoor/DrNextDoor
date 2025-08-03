@@ -13,7 +13,12 @@ const Navbar = () => {
   } = useAuth();
 
   const handleLogout = () => {
-    logout();
+    if(token)
+      logout();
+    if(adminToken)
+      logoutAdmin();
+    if(doctorToken)
+      logoutDoctor();
     navigate('/');
   };
 
@@ -109,9 +114,12 @@ const Navbar = () => {
               <li className="nav-item mx-3">
                 <Link className="nav-link fs-5" to="/contact">Contact-Us</Link>
               </li>
+              {!token && !doctorToken && !adminToken &&(
               <li className="nav-item mx-3">
                 <Link className="nav-link fs-5" to="/admin/login">Admin Panel</Link>
               </li>
+              )}
+              
             </ul>
 
             <form className="form-inline d-flex align-items-center p-2">
@@ -130,18 +138,31 @@ const Navbar = () => {
             </form>
 
             <div className="ms-auto d-flex align-items-center gap-4 mx-3">
-              {token ? (
+              {token || doctorToken || adminToken? (
                 <div className="position-relative">
                   <div className="d-flex align-items-center gap-2 cursor-pointer" onClick={() => setShowDropdown(!showDropdown)}>
                     <FaUserCircle className="text-white" size={30} />
                     <FaChevronDown className="text-white" size={14} />
                   </div>
-
-                  {showDropdown && (
+              
+                  {showDropdown && token && (
                     <div className="position-absolute bg-dark text-light p-2 mt-2 rounded shadow dropdown-menu-custom" style={{ right: 0 }}>
                       <p className="mb-1"><Link to='/patientProfile' style={{ color: 'white', textDecoration: 'none' }}>My Profile</Link></p>
-                      <p className="mb-1"><Link to='/appointments' style={{ color: 'white', textDecoration: 'none' }}>My Appointments</Link></p>
+                      <p className="mb-1"><Link to='/patientAppointments' style={{ color: 'white', textDecoration: 'none' }}>My Appointments</Link></p>
                       <p className="mb-1"><Link to='/updateProfile' style={{ color: 'white', textDecoration: 'none' }}>Edit Profile</Link></p>
+                      <p className="mb-0" onClick={handleLogout}>Logout</p>
+                    </div>
+                  )}
+                  {showDropdown && doctorToken && (
+                    <div className="position-absolute bg-dark text-light p-2 mt-2 rounded shadow dropdown-menu-custom" style={{ right: 0 }}>
+                      <p className="mb-1"><Link to='/patientProfile' style={{ color: 'white', textDecoration: 'none' }}>My Profile</Link></p>
+                      <p className="mb-1"><Link to='/patientAppointments' style={{ color: 'white', textDecoration: 'none' }}>My Appointments</Link></p>
+                      <p className="mb-1"><Link to='/updateProfile' style={{ color: 'white', textDecoration: 'none' }}>Edit Profile</Link></p>
+                      <p className="mb-0" onClick={handleLogout}>Logout</p>
+                    </div>
+                  )}
+                  {showDropdown && adminToken && (
+                    <div className="position-absolute bg-dark text-light p-2 mt-2 rounded shadow dropdown-menu-custom" style={{ right: 0 }}>
                       <p className="mb-0" onClick={handleLogout}>Logout</p>
                     </div>
                   )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import { API } from '../utils/utils.js';
+import { API } from '../../utils/utils.js';
 
 const BookAppointments = () => {
   const { id } = useParams();
@@ -41,7 +41,6 @@ const BookAppointments = () => {
     }
   };
 
-
   const getDoctorDetails = async () => {
 
     setLoading(true);
@@ -53,7 +52,6 @@ const BookAppointments = () => {
     } catch (error) {
       console.log(error);
       setError(error.response?.data?.message || "Something went wrong");
-      //navigate("/");
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React, { useRef, useState, useEffect } from 'react'
-import { API } from '../utils/utils'
+import { API } from '../../utils/utils'
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthPatient'
-import loginBack from './../assets/login-back.jpg'
+import { useAuth } from '../../context/AuthPatient'
+import loginBack from './../../assets/login-back.jpg'
 
 const AdminLogin = () => {
 

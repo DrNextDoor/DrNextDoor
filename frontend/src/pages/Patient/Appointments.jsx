@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import Book from '../components/Book'
-import { API } from '../utils/utils.js'
+import Book from '../../components/Book.jsx'
+import { API } from '../../utils/utils.js'
 
 const Appointments = () => {
     const [doctors, setDoctors] = useState([])
@@ -31,7 +31,7 @@ const Appointments = () => {
                     </div>
                 ))
             ) : (
-                <h2>No Doctors Found</h2>
+                <h2>No Appointments Booked Till Now</h2>
             )
         }
 

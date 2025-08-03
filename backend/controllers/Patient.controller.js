@@ -148,9 +148,8 @@ async function bookAppointment(req,res){
     try{
         const {doctorId,date,slot}=req.body
         const patientId=req.patientId
-        const doctor=await Doctor.findById(doctorId)
         const existing=await Appointment.findOne({doctorId,date,slot})
-        if(existing){
+        if(existing){8
             return res.status(400).send({message:"Doctor is already booked"})
         }
 
@@ -161,6 +160,7 @@ async function bookAppointment(req,res){
             slot,
             status:'Scheduled'
         })
+        
 
         res.status(201).send({ message: "Appointment booked successfully.", newAppointment });
 
@@ -170,11 +170,29 @@ async function bookAppointment(req,res){
     }
 }
 
+async function myAppointments(req,res){
+    const patientId=req.patientId
+    try{
+        const appoinments=await Appointment.find({patientId:patientId}).populate('doctorId','-password')     
+        console.log(appoinments);
+           
+        if(!appoinments){
+            return res.status(404).send({message:"No appoinments booked"})
+        }
+        return res.status(200).send(appoinments)
+    }
+    catch(error){
+        return res.status(500).send({message:"Server error",error:error.message})
+    }
+
+
+}
 module.exports={patientRegister,
     patientLogin,
     getPatientData,
     updateProfile,
     getAllDoctors,
     getDrById,
-    bookAppointment
+    bookAppointment,
+    myAppointments
 }

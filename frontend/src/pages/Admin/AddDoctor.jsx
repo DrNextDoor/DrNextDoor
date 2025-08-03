@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
-import { API } from '../utils/utils.js'
+import { API } from '../../utils/utils.js'
 // import { useAuth } from '../context/AuthContext'
 
 const AddDoctor = () => {

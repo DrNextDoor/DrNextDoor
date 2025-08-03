@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { API } from "./../utils/utils";
-import { useAuth } from "../context/AuthPatient";
+import { API } from "../../utils/utils";
+import { useAuth } from "../../context/AuthPatient";
 import { useNavigate, useParams } from "react-router-dom";
-import loginBack from './../assets/login-back.jpg'
+import loginBack from './../../assets/login-back.jpg'
 import { FaHospitalUser } from "react-icons/fa";
 
 

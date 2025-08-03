@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import DoctorCard from '../components/DoctorCard'
-import { API } from '../utils/utils.js'
+import DoctorCard from '../../components/DoctorCard.jsx'
+import { API } from '../../utils/utils.js'
 
 const AdminHomme = () => {
     const [doctors, setDoctors] = useState([])
