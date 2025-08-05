@@ -20,10 +20,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // handles form-urlencoded
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://dr-next-door.vercel.app'],
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:5000',
+    'https://dr-next-door.vercel.app',
+    'https://dr-next-door-jbnk.vercel.app'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true
 }));
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.urlencoded({extended:true}))
 app.use(cors());
