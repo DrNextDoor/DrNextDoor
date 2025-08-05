@@ -6,7 +6,8 @@ const {patientRegister,
     getAllDoctors,
     getDrById,
     bookAppointment,
-    myAppointments
+    myAppointments,
+    deleteAppointment
 }=require('./../controllers/Patient.controller.js')
 const authPatient = require('../middlewares/authPatient.middleware.js')
 const {upload}=require('./../middlewares/multer.middleware.js')
@@ -21,5 +22,6 @@ patientRouter.get('/getAllDoctors',getAllDoctors)
 patientRouter.get('/getDrById/:id',getDrById)
 patientRouter.post('/bookAppointment',authPatient,bookAppointment)
 patientRouter.get('/myAppointments',authPatient,myAppointments)
+patientRouter.delete('/delAppointment',authPatient,deleteAppointment)
 
 module.exports=patientRouter

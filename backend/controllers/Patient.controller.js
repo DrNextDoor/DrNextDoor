@@ -184,9 +184,24 @@ async function myAppointments(req,res){
     catch(error){
         return res.status(500).send({message:"Server error",error:error.message})
     }
-
-
 }
+
+//delete appointment
+const deleteAppointment = async (req, res) => {
+  try {
+    const patientId = req.patientId;
+    const appointment = await Appointment.findOne({ patientId: patientId });
+    if (!appointment) {
+      return res.status(404).send({ message: "Appointment not found or unauthorized" });
+    }
+    await Appointment.deleteOne({ patientId:patientId });
+
+    res.status(200).send({ message: "Appointment deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports={patientRegister,
     patientLogin,
     getPatientData,
@@ -194,5 +209,6 @@ module.exports={patientRegister,
     getAllDoctors,
     getDrById,
     bookAppointment,
-    myAppointments
+    myAppointments,
+    deleteAppointment
 }
