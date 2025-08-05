@@ -202,7 +202,7 @@ const DoctorLogin = () => {
     setLoading(true);
 
     try {
-      const  {data}  = await axios.post('http://localhost:5000/api/doctors/login', {
+      const  {data}  = await axios.post('https://dr-next-door.vercel.app/api/doctors/login', {
         email,
         password,
       });

@@ -363,7 +363,7 @@ const DoctorRegister = () => {
       });
       data.append('profileImage', profileImage);
 
-      const res = await axios.post('http://localhost:5000/api/doctors/register', data, {
+      const res = await axios.post('https://dr-next-door.vercel.app/api/doctors/register', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

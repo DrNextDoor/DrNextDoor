@@ -73,7 +73,7 @@ const DoctorProfile = () => {
       }
 
       const res = await axios.put(
-        `http://localhost:5000/api/doctors/${doctor._id}`,
+        `https://dr-next-door.vercel.app/api/doctors/${doctor._id}`,
         data,
         {
           headers: {
