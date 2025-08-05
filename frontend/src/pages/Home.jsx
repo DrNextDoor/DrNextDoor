@@ -16,6 +16,7 @@ import psychia from '../assets/psychia.jpg'
 import home2 from '../assets/phy-patient-1.jpg'
 import home3 from '../assets/phy-pat-2.jpg'
 import { Link } from 'react-router-dom'
+import Footer from '../components/Footer/Footer'
 
 const Home = () => {
 
@@ -180,6 +181,8 @@ const Home = () => {
                   />
                 </div>
           </div>
+          
+          <Footer />
     </>
   )
 }
