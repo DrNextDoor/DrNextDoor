@@ -3,12 +3,12 @@ import axios from 'axios'
 import { API } from '../../utils/utils'
 import { useAuth } from '../../context/AuthPatient'
 import loginBack from './../../assets/login-back.jpg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const PatientProfile = () => {
   const [patient, setPatient] = useState(null)
   const {token} =useAuth() 
-
+  const navigate=useNavigate();
 
   const fetchPatientData = async () => {
     try {
@@ -39,6 +39,14 @@ const PatientProfile = () => {
     <div>
       <style>
         {`
+          .appt-title {
+            font-weight: 600;
+            color: #02010dff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+          }
           .patient-profile {
             background: rgba(0, 0, 0, 0.6);
             color: white;
@@ -53,6 +61,18 @@ const PatientProfile = () => {
             flex-direction: column;
             justify-content: space-between;
           }
+          .patient-profile p {
+            margin: 4px 0;
+            font-size: 20px;
+            color: #ddd;
+          }
+          .myImg{
+            object-fit: cover;
+            border-radius: 50%;
+          }
+          .edit{
+            padding:10px;
+          }
             @keyframes fadeIn {
             from {
               opacity: 0;
@@ -65,21 +85,23 @@ const PatientProfile = () => {
           }
         `}
       </style>
+    <h2 className="appt-title">My Profile</h2>
     <div className="p-4" style={{display:"flex",flexDirection:"row"}}>
       <div style={{width:"50%"}}>
-        {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"90%"}} className="w-32 h-32 rounded-full mt-2" />}
+        {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"80%"}} className="myImg rounded-full mt-2" />}
       </div>
       <div className='patient-profile text-light rounded-5 p-4' style={{width:"50%"}}>
-        <p><strong>{patient.name}</strong></p>
-        <p><strong>Email:</strong> {patient.email}</p>
-        <p><strong>Address:</strong>{patient.address.line1},{patient.address.line2}</p>
-        <p><strong>Gender:</strong>{patient.gender}</p>
-        <p><strong>Date of birth:</strong>{patient.dob}</p>
-        <p><strong>Phone no:</strong>{patient.phone}</p>
-        <p><strong>Appointments:</strong>{patient.appointments?patient.appointments:"No appointments made"}</p>
+        <p><strong>Hello {patient.name}!!</strong></p>
+        <p><strong>Email: </strong> {patient.email}</p>
+        <p><strong>Gender: </strong>{patient.gender}</p>
+        <p><strong>Date of birth: </strong>{patient.dob}</p>
+        <p><strong>Address: </strong>{patient.address.line1},{patient.address.line2}</p>
+        <p><strong>Phone no: </strong>{patient.phone}</p>
+        <button className="edit btn btn-dark" onClick={()=>navigate('/updateProfile')}>
+            Edit your profile
+        </button>
       </div>
     </div>
-    <button><Link to='/updateProfile'>Edit your profile</Link></button>
     </div>
   )
 }

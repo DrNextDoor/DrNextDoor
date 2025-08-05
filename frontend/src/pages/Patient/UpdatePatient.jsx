@@ -96,6 +96,11 @@ const UpdateProfile = () => {
     <>
     <style>
                 {`
+                  .myImg{
+                    object-fit: cover;
+                    border-radius: 50%;
+                  }
+                    
                     .patient-login-card {
                         background: rgba(0, 0, 0, 0.6);
                         color: white;
@@ -104,7 +109,7 @@ const UpdateProfile = () => {
                         box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
                         max-width: 520px;
                         width: 100%;
-                        height: 550px;
+                        height: 570px;
                         animation: fadeIn 0.5s ease-in-out;
                         display: flex;
                         flex-direction: column;
@@ -113,26 +118,28 @@ const UpdateProfile = () => {
                     }
 
                     .form-control {
-                        background-color: #121212;
                         border: 1px solid #333;
                         color: white;
                         height: 45px;
                         font-size: 16px;
+                        background-color:transparent;
+                        border: 0px;
                     }
 
                     .form-control::placeholder {
                         color: #bbb;
                     }
 
-                    .login-btn {
+                    .update-btn {
                         width: 100%;
-                        padding: 12px;
                         background-color: white;
                         color: black;
                         font-weight: bold;
                         border: none;
                         border-radius: 10px;
                         transition: all 0.3s ease;
+                        font-size:20px;
+                        border-radius: 5px;
                     }
 
                     .update-btn:hover {
@@ -159,11 +166,13 @@ const UpdateProfile = () => {
                     }
                 `}
             </style>
-      <div className="container-fluid">
-                      <div className="row align-items-center" style={{ height: "95vh" }}>
-                          <div className="col-md-7"></div>
-                          <div className="col-md-5 d-flex justify-content-center align-items-center">
-                              <div className="patient-login-card">
+      <div className="container-fluid row"> 
+                      <div className="row align-items-center">
+                        <div style={{width:"50%"}} className="col-md-6">
+                            {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"80%"}} className="myImg rounded-full mt-2" />}
+                        </div>
+                        <div className="col-md-5 d-flex justify-content-center align-items-center" >
+                              <div className="patient-login-card mt-5">
                                   <div>
                                       <div className="text-center mb-4">
                                           <FaHospitalUser size={40} style={{ color: 'white' }} />
@@ -171,20 +180,20 @@ const UpdateProfile = () => {
                                       </div>
       
                                       {message && <p className="message-text">{message}</p>}
-                                      <form onSubmit={handleSubmit}>
+                                      <form onSubmit={handleSubmit} className="form-control">
 
                                       <div className="mb-3">
-                                        <label>Name:</label>
+                                        <label>Name: </label>
                                         <input ref={nameRef} />
                                       </div>
 
                                       <div className="mb-3">
-                                        <label>Email:</label>
+                                        <label>Email: </label>
                                         <input ref={emailRef} />
                                       </div>
  
                                         <div className="mb-3">
-                                        <label>Gender:</label>
+                                        <label>Gender: </label>
                                         <select ref={genderRef}>
                                           <option value="">Select</option>
                                           <option value="male">Male</option>
@@ -194,27 +203,27 @@ const UpdateProfile = () => {
 
 
                                         <div className="mb-3">
-                                        <label>DOB:</label>
+                                        <label>DOB: </label>
                                         <input type="date" ref={dobRef} />
                                         </div>
 
                                         <div className="mb-3">
-                                        <label>Phone:</label>
-                                        <input ref={phoneRef} type="number"/>
-                                        </div>
-
-                                        <div className="mb-3">
-                                        <label>Profile:</label>
+                                        <label>Profile: </label>
                                         <input type="file" id="profileImage"/>
                                         </div>
 
                                         <div className="mb-3">
-                                        <label>Address Line 1:</label>
+                                        <label>Phone: </label>
+                                        <input ref={phoneRef} type="number"/>
+                                        </div>
+
+                                        <div className="mb-3">
+                                        <label>Address Line 1: </label>
                                         <input ref={line1Ref} />
                                         </div>
 
                                         <div className="mb-3">
-                                        <label>Address Line 2:</label>
+                                        <label>Address Line 2: </label>
                                         <input ref={line2Ref} />
                                         </div>
 
@@ -225,7 +234,7 @@ const UpdateProfile = () => {
                                       </form>
                                       
                                   </div>
-                                  <div className="text-center" style={{ fontSize: "12px", color: "#aaa", marginTop: "10px" }}>
+                                  <div className="text-center" style={{ fontSize: "12px", color: "#aaa" }}>
                                       © 2025 DrNextDoor • All rights reserved
                                   </div>
                               </div>
