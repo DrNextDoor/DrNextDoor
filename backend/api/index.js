@@ -1,14 +1,14 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connectDB = require('../config/db.js');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path=require('path')
 
-const doctorRoutes = require('./routes/doctorRoutes'); 
-const patientRouter = require('./routes/Patient.router.js');
-const adminRouter = require('./routes/AdminRoutes.js');
+const doctorRoutes = require('../routes/doctorRoutes.js'); 
+const patientRouter = require('../routes/Patient.router.js');
+const adminRouter = require('../routes/AdminRoutes.js');
 
-const questionRoutes = require('./routes/questionRoute');
+const questionRoutes = require('../routes/questionRoute.js');
 const app=express()
 const PORT=process.env.PORT || 5000;
 dotenv.config();
@@ -50,10 +50,7 @@ app.use('/api/questions', questionRoutes);
 
 
 
-app.listen(PORT, function(){
-    console.log(`Server started at port ${PORT}`)
-    connectDB();
-})
-
+connectDB();  // just call the DB
+module.exports = app;  // Vercel handles the server
 
 
