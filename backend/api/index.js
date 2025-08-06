@@ -57,6 +57,8 @@ app.use('/api/questions', questionRoutes);
 
 
 connectDB();  // just call the DB
+console.log("Hii");
+
 module.exports = app;  // Vercel handles the server
 
 
