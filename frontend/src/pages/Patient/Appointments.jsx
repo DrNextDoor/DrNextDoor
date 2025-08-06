@@ -11,7 +11,6 @@ const Appointments = () => {
         try {
             const  data  = await axios.get(`${API}/patient/getAllDoctors`)
             setDoctors(data.data)
-            console.log(doctors);
             
         } catch (error) {
             console.error(error)
@@ -48,6 +47,8 @@ const Appointments = () => {
             <>
             <h2 className="appt-title">All Doctors</h2>
             <div className='all-doc row g-3'>
+                {console.log(doctors[0].profileImage)
+                }
                 { doctors.map((doctor) => (
                     <div className='doc-card col-md-4' key={doctor._id}>
                         <Book className='doc' doctor={doctor} />
