@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { API } from '../../utils/utils.js';
+import loginBack from './../../assets/login-back.jpg'
 
 const BookAppointments = () => {
   const { id } = useParams();
@@ -45,7 +46,6 @@ const BookAppointments = () => {
 
     setLoading(true);
     try {
-      console.log(id);
       const res = await axios.get(`${API}/patient/getDrById/${id}`);
       setDoctor(res.data);
       
@@ -58,6 +58,10 @@ const BookAppointments = () => {
   };
 
   useEffect(() => {
+    document.body.style.backgroundImage = `url(${loginBack})`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
     getDoctorDetails();
   }, [id]);
 
@@ -68,23 +72,54 @@ const BookAppointments = () => {
   if (!doctor) return <p>No doctor data found</p>;
 
   return (
-    <div className='row g-3'>
-      <h2>Doctor Details</h2>
-      <div className='col-md-4'>
+    <>
+    <style>
+      {`
+          .title {
+            font-weight: 600;
+            color: #02010dff;
+            font-size: 32px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 10px;
+          }
+
+          .doc-img{
+            border-radius:50%;
+            object-fit: cover;
+            height:350px;
+            width:350px;
+            flex-shrink: 0;
+            border: 1px solid black;
+            justify-content:center;
+          }
+
+          .detail{
+            background:rgba(56, 52, 52, 0.6);
+            font-size:20px;
+          }
+
+          .doc-info{
+            color:white
+          }
+      `}
+    </style>
+    <h2 className='title'>Doctor Details</h2>
+    <div className='detail row g-3'>
+      <div className='col-md-4 p-4'>
         <img
           src={`${API}/uploads/doctors/${doctor.profileImage}`}
-          className='img-fluid rounded'
+          className='doc-img'
           alt={doctor.name}
-          style={{ height: '95%', width: '80%', objectFit: 'cover' }}
         />
       </div>
 
-      <div className='col-md-8' style={{ marginTop: '20px', border: '1px solid black', padding: '10px' }}>
+      <div className='doc-info col-md-8' style={{ marginTop: '20px', padding: '10px' }}>
         <h3>Doctor Information</h3>
         <p><strong>Name:</strong> {doctor.name}</p>
         <p><strong>Email:</strong> {doctor.email}</p>
         <p><strong>Degree:</strong> {doctor.degree}</p>
-        <p><strong>Specialty:</strong> {doctor.specialty}</p>
+        <p><strong>Specialization:</strong> {doctor.specialization}</p>
         <p><strong>Experience:</strong> {doctor.experience}</p>
         <p><strong>Bio:</strong> {doctor.bioMessage}</p>
         <p><strong>Slots:</strong></p>
@@ -94,10 +129,10 @@ const BookAppointments = () => {
     {Object.entries(doctor.slots).map(([key, value], index) => (
       <button
         key={index}
-        className={`btn ${selectedSlot === `${key}: ${value}` ? 'btn-success' : 'btn-outline-primary'}`}
+        className={`btn ${selectedSlot === `${key}: ${value}` ? 'btn-light' : 'btn-outline-dark'}`}
         onClick={() => setSelectedSlot(`${key}: ${value}`)}
       >
-        {key}: {value}
+       <span> {key}: {value}</span>
       </button>
       ))}
     </div>
@@ -105,14 +140,15 @@ const BookAppointments = () => {
       <p>No available slots.</p>
     )}
         <div className="mt-4">
-          <button className='btn btn-primary' onClick={handleBookAppointment} disabled={!selectedSlot}>
+          <button className='btn btn-dark' onClick={handleBookAppointment} disabled={!selectedSlot}>
             Book Appointment
           </button>
-          {successMessage && <p className="text-success mt-3">{successMessage}</p>}
+          {successMessage && <p className="text-light mt-3">{successMessage}</p>}
 
         </div>
       </div>
     </div>
+    </>
   );
 };
 

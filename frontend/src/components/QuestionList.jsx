@@ -8,7 +8,7 @@ const QuestionList = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/questions');
+        const response = await fetch('https://dr-next-door.vercel.app/api/questions');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

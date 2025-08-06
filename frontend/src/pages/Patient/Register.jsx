@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useRef, useState } from 'react'
-import { API } from '../../utils/utils'
+import { API,stateDistrictData } from '../../utils/utils'
 import loginBack from './../../assets/login-back.jpg'
 import { FaHospitalUser } from "react-icons/fa";
 import defaultImage from './../../assets/default_patient.png'
@@ -12,11 +12,20 @@ const Register = () => {
 
     const nameRef = useRef()
     const emailRef = useRef()
+    const stateRef=useRef()
+    const distRef=useRef()
+    const [state,setState]=useState(null)
+    const [dist,setDist]=useState([])
     const [password,setPassword]=useState("")
     const [confirmPass,setConfirmPass]=useState("")
     const [passwordMatch,setPasswordMatch]=useState(true)
     
 
+    const handleStateChange=(e)=>{
+        setState(e.target.value)
+        setDist(stateDistrictData[state] || [])
+        distRef.current.value=""
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
@@ -27,7 +36,7 @@ const Register = () => {
         }
         let name = nameRef.current.value
         let email = emailRef.current.value
-        
+        let address={"State":state,"District":distRef.current.value}
         try {   
             const response = await fetch(defaultImage)
         const blob = await response.blob()
@@ -39,6 +48,7 @@ const Register = () => {
         formData.append("email", email)
         formData.append("password", password)
         formData.append("image", file) 
+        formData.append("address",address)
 
         const config = {
             headers: {
@@ -165,7 +175,19 @@ const Register = () => {
                 <div className="card-body">
                     <form method="post" onSubmit={handleSubmit}>
                         <input ref={nameRef} type='text' className='form-control mb-2' placeholder='Enter your Name' required /> 
-                        <input ref={emailRef} type='email' className='form-control mb-2' placeholder='Enter your email' required /> 
+                        <input ref={emailRef} type='email' className='form-control mb-2' placeholder='Enter your email' required />
+                        <select ref={stateRef} onChange={handleStateChange}>
+                            <option value="">Select State</option>
+                            {Object.keys(stateDistrictData).map((state) => (
+                            <option key={state} value={state}>{state}</option>
+                            ))}
+                        </select>                   
+                        <select ref={distRef}>
+                            <option value="">Select District</option>
+                            {dist.map((district) => (
+                            <option key={district} value={district}>{district}</option>
+                            ))}
+                        </select> 
                         <input type='password' className='form-control mb-2' 
                             placeholder='Enter password'
                             id="password"

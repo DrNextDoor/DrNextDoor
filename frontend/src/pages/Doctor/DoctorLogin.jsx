@@ -186,6 +186,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUserMd } from 'react-icons/fa';
 import loginBack from './../../assets/login-back.jpg';
 import { useAuth } from '../../context/AuthPatient';
+import {API} from '../../utils/utils'
 
 const DoctorLogin = () => {
   const navigate = useNavigate();
@@ -202,7 +203,7 @@ const DoctorLogin = () => {
     setLoading(true);
 
     try {
-      const  {data}  = await axios.post('http://localhost:5000/api/doctors/login', {
+      const  {data}  = await axios.post(`${API}/api/doctors/login`, {
         email,
         password,
       });

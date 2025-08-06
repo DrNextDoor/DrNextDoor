@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { API } from './../../utils/utils'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import loginBack from './../../assets/login-back.jpg'
 import { FaHospitalUser } from "react-icons/fa";
 import { useAuth } from '../../context/AuthPatient'
@@ -168,6 +168,11 @@ const Login = () => {
                             <div className="text-center" style={{ fontSize: "12px", color: "#aaa", marginTop: "10px" }}>
                                 © 2025 DrNextDoor • All rights reserved
                             </div>
+                            
+                            <div className="text-center" style={{ fontSize: "15px", color: "white", marginTop: "10px" }}>
+                                <p>New to DrNextDoor..?? <Link to="/register" style={{color:"white",textDecoration:"none"}}>Register here</Link></p>
+                            </div>
+
                         </div>
                     </div>
                 </div>

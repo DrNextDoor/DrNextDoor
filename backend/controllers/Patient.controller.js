@@ -10,7 +10,7 @@ const bcrypt=require('bcryptjs')
 const patientRegister=async(req,res)=>{
     try{
         
-        const {name,email,password}=req.body
+        const {name,email,password,address}=req.body
         if(!name || !password || !email){
             return res.status(400).send({message:"Please enter all details"})
         }
@@ -30,7 +30,8 @@ const patientRegister=async(req,res)=>{
             name,
             email,
             password,
-            image
+            image,
+            address
         }
 
         const salt=await bcrypt.genSalt(10)
@@ -74,7 +75,6 @@ const getPatientData=async(req,res)=>{
         const patientId=req.patientId    
            
         const patientData=await patientModel.findOne({_id:patientId})
-        console.log("PatientData",patientData);
         
         let modPatient={
             ...patientData.toObject(),
@@ -86,9 +86,7 @@ const getPatientData=async(req,res)=>{
         }
         else{
             res.status(404).send({"message": "Invalid id"})
-
         }
-        
     }
     catch(error){
         res.status(500).send({message: "Server Error"})
@@ -129,10 +127,7 @@ const getAllDoctors = async (req, res) => {
 
 async function getDrById(req, res){
     try {
-        console.log(req.params)
-        let { id } = req.params
-
-        
+        let { id } = req.params        
         let doctor = await Doctor.findOne({_id: id})  //_id is the database id of the user
         if(doctor){
             res.send(doctor)
@@ -174,7 +169,6 @@ async function myAppointments(req,res){
     const patientId=req.patientId
     try{
         const appoinments=await Appointment.find({patientId:patientId}).populate('doctorId','-password')     
-        console.log(appoinments);
            
         if(!appoinments){
             return res.status(404).send({message:"No appoinments booked"})
@@ -184,9 +178,24 @@ async function myAppointments(req,res){
     catch(error){
         return res.status(500).send({message:"Server error",error:error.message})
     }
-
-
 }
+
+//delete appointment
+const deleteAppointment = async (req, res) => {
+  try {
+    const patientId = req.patientId;
+    const appointment = await Appointment.findOne({ patientId: patientId });
+    if (!appointment) {
+      return res.status(404).send({ message: "Appointment not found or unauthorized" });
+    }
+    await Appointment.deleteOne({ patientId:patientId });
+
+    res.status(200).send({ message: "Appointment deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Server error", error: error.message });
+  }
+};
+
 module.exports={patientRegister,
     patientLogin,
     getPatientData,
@@ -194,5 +203,6 @@ module.exports={patientRegister,
     getAllDoctors,
     getDrById,
     bookAppointment,
-    myAppointments
+    myAppointments,
+    deleteAppointment
 }

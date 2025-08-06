@@ -19,7 +19,7 @@ const patientSchema=new mongoose.Schema({
     },
     address:{
         type:Object,
-        default:{line1:'',line2:''}
+        default:{State:'',District:''}
     },
     gender:{
         type:String,

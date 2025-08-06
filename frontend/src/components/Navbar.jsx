@@ -60,7 +60,9 @@ const Navbar = () => {
         <li className="nav-item">
           <Link className="nav-link fs-5" to="/">Add Doctor</Link>
         </li>
-        
+        <li className="nav-item mx-3">
+          <Link className="nav-link fs-5" to="/about">All Queries</Link>
+        </li>
       </>
     ); 
   }
@@ -73,6 +75,9 @@ const Navbar = () => {
         </li>
         <li className="nav-item">
           <Link className="nav-link fs-5" to="/doctorLogin">Doctor Panel</Link>
+        </li>
+        <li className="nav-item mx-3">
+          <Link className="nav-link fs-5" to="/admin/login">Admin Panel</Link>
         </li>
       </>
     );
@@ -119,20 +124,6 @@ const Navbar = () => {
               </li>
               </>
               )}
-
-              { adminToken &&(
-              <li className="nav-item mx-3">
-                <Link className="nav-link fs-5" to="/about">All Queries</Link>
-              </li>
-              
-              )}
-              
-              {!token && !doctorToken && !adminToken &&(
-              <li className="nav-item mx-3">
-                <Link className="nav-link fs-5" to="/admin/login">Admin Panel</Link>
-              </li>
-              )}
-              
             </ul>
 
             <form className="form-inline d-flex align-items-center p-2">
