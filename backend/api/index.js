@@ -54,10 +54,10 @@ app.use('/api/doctors', doctorRoutes); //handles register, login, profile, all d
 app.use('/patient',patientRouter)
 app.use('/api/questions', questionRoutes);
 
+console.log("Hii");
 
 
 connectDB();  // just call the DB
-console.log("Hii");
 
 module.exports = app;  // Vercel handles the server
 
