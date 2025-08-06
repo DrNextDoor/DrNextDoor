@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {API} from '../../utils/utils'
 
 const DoctorProfile = () => {
   const [doctor, setDoctor] = useState(null);
@@ -24,7 +25,7 @@ const DoctorProfile = () => {
       try {
         console.log(token);
         
-        const res = await axios.get("http://localhost:5000/api/doctors/profile", {
+        const res = await axios.get(`${API}/api/doctors/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

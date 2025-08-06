@@ -328,6 +328,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import loginBack from './../../assets/login-back.jpg';
 import { FaUserMd } from 'react-icons/fa';
+import {API} from '../../utils/utils'
 
 const DoctorRegister = () => {
   const navigate = useNavigate();
@@ -363,7 +364,7 @@ const DoctorRegister = () => {
       });
       data.append('profileImage', profileImage);
 
-      const res = await axios.post('https://dr-next-door.vercel.app/api/doctors/register', data, {
+      const res = await axios.post(`${API}/api/doctors/register`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
