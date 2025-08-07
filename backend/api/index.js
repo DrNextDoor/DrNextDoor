@@ -5,4 +5,4 @@ const serverless = require('serverless-http');
 
 console.log("App loaded. Exporting handler...");
 
-module.exports.handler = serverless(app);
+module.exports = serverless(app);
