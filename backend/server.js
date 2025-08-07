@@ -1,3 +1,5 @@
+console.log("Hii");
+
 const express = require('express');
 const connectDB = require('./config/db.js');
 const cors = require('cors');
@@ -9,6 +11,7 @@ const patientRouter = require('./routes/Patient.router.js');
 const adminRouter = require('./routes/AdminRoutes.js');
 
 const questionRoutes = require('./routes/questionRoute.js');
+const { log } = require('console');
 const app=express()
 const PORT=process.env.PORT || 5000;
 dotenv.config();
