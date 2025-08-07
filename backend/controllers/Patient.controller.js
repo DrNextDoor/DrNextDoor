@@ -75,7 +75,6 @@ const getPatientData=async(req,res)=>{
         const patientId=req.patientId    
            
         const patientData=await patientModel.findOne({_id:patientId})
-        
         let modPatient={
             ...patientData.toObject(),
             image:process.env.PATIENT_URL+patientData.image
