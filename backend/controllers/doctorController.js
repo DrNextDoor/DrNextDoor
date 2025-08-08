@@ -10,7 +10,7 @@ const registerDoctor = async (req, res) => {
     const { name, email, password, specialization, experience, bioMessage } = req.body;
     const profileImage = req.file?.filename;
     
-    if (!name || !email || !password || !specialization || !experience || !bioMessage || !profileImage) {
+    if (!name || !email || !password || !specialization || !experience || !bioMessage || !profileImage || !location) {
       return res.status(400).send({ message: "All fields including profile image are required" });
     }
 
@@ -34,7 +34,8 @@ const registerDoctor = async (req, res) => {
       specialization,
       experience,
       bioMessage,
-      profileImage
+      profileImage,
+      location
     });
      //Hash the password
     const salt = await bcrypt.genSalt(10);
