@@ -14,6 +14,8 @@ const DoctorRegister = () => {
     specialization: '',
     experience: '',
     bioMessage: '',
+    state: '',
+    district: ''
   });
   const [profileImage, setProfileImage] = useState(null);
   const [message, setMessage] = useState('');
@@ -44,9 +46,17 @@ const DoctorRegister = () => {
 
     try {
       const data = new FormData();
+      const location = {
+        State: formData.state,
+        District: formData.district,
+      };
+
+      const { state, district, ...restFields } = formData;
       Object.entries(formData).forEach(([key, value]) => {
         data.append(key, value);
       });
+
+      data.append('location', JSON.stringify(location));
       data.append('profileImage', profileImage);
       data.append("address[State]", state);
       data.append("address[District]", dist);
@@ -105,6 +115,21 @@ const DoctorRegister = () => {
           </select> 
           <input className="form-control" name="password" placeholder="Password" type="password" onChange={handleChange} required />
           <input className="form-control" name="specialization" placeholder="Specialization" onChange={handleChange} required />
+          
+         <select className="form-control" name="state" value={formData.state} onChange={handleChange} required>
+            <option value="">Select State</option>
+            {Object.keys(stateDistrictData).map((state) => (
+              <option key={state} value={state}>{state}</option>
+            ))}
+          </select>
+
+          <select className="form-control" name="district" value={formData.district} onChange={handleChange} required>
+            <option value="">Select District</option>
+            {dist.map((district) => (
+              <option key={district} value={district}>{district}</option>
+            ))}
+          </select>
+
           <input className="form-control" name="experience" placeholder="Experience" type="number" onChange={handleChange} required />
           <textarea className="form-control" name="bioMessage" placeholder="Bio" onChange={handleChange} required />
           <input className="form-control" type="file" onChange={handleFileChange} required />

@@ -10,6 +10,7 @@ const DoctorProfile = () => {
     name: "",
     specialization: "",
     experience: "",
+    location: { State: '', District: '' }, // Added location field
     bioMessage: "",
     profileImage: null,
     appointments:null,
@@ -17,7 +18,7 @@ const DoctorProfile = () => {
   });
 
   const [editing, setEditing] = useState(false);
-
+  const [districts, setDistricts] = useState([]);
   const token = localStorage.getItem("doctorToken");
 
   useEffect(() => {
@@ -35,12 +36,18 @@ const DoctorProfile = () => {
           name: res.data.name,
           specialization: res.data.specialization,
           experience: res.data.experience,
+          location: res.data.location,
           bioMessage: res.data.bioMessage,
           profileImage: res.data.profileImage,
           appointments:res.data.appintments,
           slots:res.data.slots,
           address:{"State":res.data.address.State,"District":res.data.address.District}
         });
+
+
+        if (res.data.location?.State) {
+          setDistricts(stateDistrictData[res.data.location.State] || []);
+        }
         
       } catch (err) {
         console.error("Error fetching doctor profile:", err);
@@ -52,10 +59,26 @@ const DoctorProfile = () => {
   }, [token]);
 
   const handleChange = (e) => {
-    if (e.target.name === "profileImage") {
+    const { name, value } = e.target;
+
+    if (name === "profileImage") {
       setFormData({ ...formData, profileImage: e.target.files[0] });
+    } else if (name === "State") {
+      setFormData({
+        ...formData,
+        location: { State: value, District: '' }
+      });
+      setDistricts(stateDistrictData[value] || []);
+    } else if (name === "District") {
+      setFormData({
+        ...formData,
+        location: {
+          ...formData.location,
+          District: value
+        }
+      });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [name]: value });
     }
   };
 
@@ -67,6 +90,7 @@ const DoctorProfile = () => {
       data.append("specialization", formData.specialization);
       data.append("experience", formData.experience);
       data.append("bioMessage", formData.bioMessage);
+      data.append("location", JSON.stringify(formData.location));
       if (formData.profileImage) {
         data.append("profileImage", formData.profileImage);
       }
@@ -107,6 +131,7 @@ const DoctorProfile = () => {
             <p><strong>Name:</strong> {doctor.name}</p>
             <p><strong>Specialization:</strong> {doctor.specialization}</p>
             <p><strong>Experience:</strong> {doctor.experience} years</p>
+            <p><strong>Location:</strong> {doctor.location?.State}, {doctor.location?.District}</p>
             <p><strong>Bio:</strong> {doctor.bioMessage}</p>
             <p><strong>Address: </strong>{doctor.address.District},{doctor.address.State}</p>
             <p><strong>Appointments:</strong> </p>
@@ -171,6 +196,33 @@ const DoctorProfile = () => {
               className="w-full p-2 border rounded"
               required
             />
+
+            <select
+              name="State"
+              value={formData.location.State}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              required
+            >
+              <option value="">Select State</option>
+              {Object.keys(stateDistrictData).map((state) => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </select>
+
+            <select
+              name="District"
+              value={formData.location.District}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              required
+            >
+              <option value="">Select District</option>
+              {districts.map((district) => (
+                <option key={district} value={district}>{district}</option>
+              ))}
+            </select>
+            
             <textarea
               name="bioMessage"
               value={formData.bioMessage}
