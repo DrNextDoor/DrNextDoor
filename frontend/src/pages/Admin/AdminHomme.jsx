@@ -13,7 +13,7 @@ const AdminHomme = () => {
             console.log(doctors);
             
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 

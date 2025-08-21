@@ -12,7 +12,7 @@ const AdminLogin = () => {
     const [message, setMessage] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const emailRef = useRef()
+    const emailRef = useRef() //useRef = use for managing mutable values that should persist across renders.
     const passwordRef = useRef()
 
     const handleSubmit = async(e) => {
