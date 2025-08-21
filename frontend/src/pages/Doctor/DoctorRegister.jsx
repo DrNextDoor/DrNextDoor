@@ -125,7 +125,7 @@ const DoctorRegister = () => {
 
           <select className="form-control" name="district" value={formData.district} onChange={handleChange} required>
             <option value="">Select District</option>
-            {dist.map((district) => (
+            {dists.map((district) => (
               <option key={district} value={district}>{district}</option>
             ))}
           </select>
