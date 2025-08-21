@@ -10,6 +10,10 @@ const doctorSchema = new mongoose.Schema({
   bioMessage: { type: String, required: true },
   approved:{type:String,default:"not approved"},
   appointments:{type:Object,default:{}},
+  address:{
+    type:Object,
+    default:{State:'',District:''}
+  },
   slots:{type:Object,default:{"morning":"6-9","evening":"5-6"}}
 });
 

@@ -58,7 +58,7 @@ app.use('/api/questions', questionRoutes);
 
 connectDB();  
 
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 

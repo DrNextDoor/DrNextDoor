@@ -12,19 +12,19 @@ const Register = () => {
 
     const nameRef = useRef()
     const emailRef = useRef()
-    const stateRef=useRef()
-    const distRef=useRef()
-    const [state,setState]=useState(null)
-    const [dist,setDist]=useState([])
+    const [state,setState]=useState("")
+    const [dist,setDist]=useState("")
+    const [dists,setDists]=useState([])
     const [password,setPassword]=useState("")
     const [confirmPass,setConfirmPass]=useState("")
     const [passwordMatch,setPasswordMatch]=useState(true)
     
 
     const handleStateChange=(e)=>{
-        setState(e.target.value)
-        setDist(stateDistrictData[state] || [])
-        distRef.current.value=""
+        const selectedState=e.target.value
+        setState(selectedState)
+        setDists(stateDistrictData[selectedState] || [])
+        setDist("")
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -36,7 +36,7 @@ const Register = () => {
         }
         let name = nameRef.current.value
         let email = emailRef.current.value
-        let address={"State":state,"District":distRef.current.value}
+        let addr={"State":state,"District":dist}
         try {   
             const response = await fetch(defaultImage)
         const blob = await response.blob()
@@ -48,7 +48,7 @@ const Register = () => {
         formData.append("email", email)
         formData.append("password", password)
         formData.append("image", file) 
-        formData.append("address",address)
+        formData.append("address",JSON.stringify(addr))
 
         const config = {
             headers: {
@@ -176,15 +176,15 @@ const Register = () => {
                     <form method="post" onSubmit={handleSubmit}>
                         <input ref={nameRef} type='text' className='form-control mb-2' placeholder='Enter your Name' required /> 
                         <input ref={emailRef} type='email' className='form-control mb-2' placeholder='Enter your email' required />
-                        <select ref={stateRef} onChange={handleStateChange}>
+                        <select value={state} onChange={handleStateChange}>
                             <option value="">Select State</option>
-                            {Object.keys(stateDistrictData).map((state) => (
-                            <option key={state} value={state}>{state}</option>
+                            {Object.keys(stateDistrictData).map((selectState) => (
+                            <option key={selectState} value={selectState}>{selectState}</option>
                             ))}
                         </select>                   
-                        <select ref={distRef}>
+                        <select value={dist} onChange={(e)=>setDist(e.target.value)}>
                             <option value="">Select District</option>
-                            {dist.map((district) => (
+                            {dists.map((district) => (
                             <option key={district} value={district}>{district}</option>
                             ))}
                         </select> 

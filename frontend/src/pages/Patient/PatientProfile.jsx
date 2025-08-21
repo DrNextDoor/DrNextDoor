@@ -95,7 +95,7 @@ const PatientProfile = () => {
         <p><strong>Email: </strong> {patient.email}</p>
         <p><strong>Gender: </strong>{patient.gender}</p>
         <p><strong>Date of birth: </strong>{patient.dob}</p>
-        <p><strong>Address: </strong>{patient.address.line1},{patient.address.line2}</p>
+        <p><strong>Address: </strong>{patient.address.District},{patient.address.State}</p>
         <p><strong>Phone no: </strong>{patient.phone}</p>
         <button className="edit btn btn-dark" onClick={()=>navigate('/updateProfile')}>
             Edit your profile

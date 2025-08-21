@@ -58,7 +58,7 @@ const Navbar = () => {
           <Link className="nav-link fs-5" to="/admin/allDoctors">All Doctors</Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link fs-5" to="/">Add Doctor</Link>
+          <Link className="nav-link fs-5" to="/admin/addDoctor">Add Doctor</Link>
         </li>
         <li className="nav-item mx-3">
           <Link className="nav-link fs-5" to="/about">All Queries</Link>
@@ -159,7 +159,7 @@ const Navbar = () => {
                   )}
                   {showDropdown && doctorToken && (
                     <div className="position-absolute bg-dark text-light p-2 mt-2 rounded shadow dropdown-menu-custom" style={{ right: 0 }}>
-                      <p className="mb-1"><Link to='/patientProfile' style={{ color: 'white', textDecoration: 'none' }}>My Profile</Link></p>
+                      <p className="mb-1"><Link to='/DoctorProfile' style={{ color: 'white', textDecoration: 'none' }}>My Profile</Link></p>
                       <p className="mb-1"><Link to='/patientAppointments' style={{ color: 'white', textDecoration: 'none' }}>My Appointments</Link></p>
                       <p className="mb-1"><Link to='/updateProfile' style={{ color: 'white', textDecoration: 'none' }}>Edit Profile</Link></p>
                       <p className="mb-0" onClick={handleLogout}>Logout</p>

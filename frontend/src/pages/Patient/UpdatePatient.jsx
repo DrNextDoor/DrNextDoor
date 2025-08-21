@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { API } from "../../utils/utils";
+import { API,stateDistrictData } from "../../utils/utils";
 import { useAuth } from "../../context/AuthPatient";
 import { useNavigate, useParams } from "react-router-dom";
 import loginBack from './../../assets/login-back.jpg'
@@ -21,8 +21,16 @@ const UpdateProfile = () => {
   const genderRef = useRef();
   const dobRef = useRef();
   const phoneRef = useRef();
-  const line1Ref = useRef();
-  const line2Ref = useRef();
+  const [state,setState]=useState("")
+  const [dist,setDist]=useState("")
+  const [dists,setDists]=useState([])
+
+   const handleStateChange=(e)=>{
+    const selectedState=e.target.value
+    setState(selectedState)
+    setDists(stateDistrictData[selectedState] || [])
+    setDist("")
+  }
 
   const fetchPatientData = async () => {
     try {
@@ -34,13 +42,15 @@ const UpdateProfile = () => {
       const data = response.data;
       setPatient(data);
 
-      nameRef.current.value = data.name;
-      emailRef.current.value = data.email
-      genderRef.current.value = data.gender;
-      dobRef.current.value = data.dob;
-      phoneRef.current.value = data.phone ;
-      line1Ref.current.value = data.address?.line1;
-      line2Ref.current.value = data.address?.line2;
+      if(nameRef.current) nameRef.current.value = data.name || "";
+      if(emailRef.current) emailRef.current.value = data.email || ""
+      if(genderRef.current) genderRef.current.value = data.gender || "";
+      if(dobRef.current) dobRef.current.value = data.dob || "";
+      if(phoneRef.current) phoneRef.current.value = data.phone  || "";
+      setState(data.address?.State);
+      setDists(stateDistrictData[data.address?.State] || [])
+      setDist(data.address?.District);      
+      
     } catch (error) {
       console.error("Error fetching patient data:", error);
     }
@@ -66,13 +76,12 @@ const UpdateProfile = () => {
   formData.append("gender", genderRef.current.value);
   formData.append("dob", dobRef.current.value);
   formData.append("phone", phoneRef.current.value);
-  formData.append("address[line1]", line1Ref.current.value);
-  formData.append("address[line2]", line2Ref.current.value);
+  formData.append("address[State]", state);
+  formData.append("address[District]", dist);
   const fileInput = document.getElementById("profileImage");
   if (fileInput.files[0]) {
     formData.append("image", fileInput.files[0]);
   }
-    console.log("Updated data being sent:", formData);
 
     try {
       
@@ -217,15 +226,19 @@ const UpdateProfile = () => {
                                         <input ref={phoneRef} type="number"/>
                                         </div>
 
-                                        <div className="mb-3">
-                                        <label>Address Line 1: </label>
-                                        <input ref={line1Ref} />
-                                        </div>
+                                        <select value={state} onChange={handleStateChange}>
+                                        <option value="">Select State</option>
+                                          {Object.keys(stateDistrictData).map((selectState) => (
+                                          <option key={selectState} value={selectState}>{selectState}</option>
+                                          ))}
+                                        </select>   
 
-                                        <div className="mb-3">
-                                        <label>Address Line 2: </label>
-                                        <input ref={line2Ref} />
-                                        </div>
+                                        <select value={dist} onChange={(e)=>setDist(e.target.value)}>
+                                          <option value="">Select District</option>
+                                          {dists.map((district) => (
+                                          <option key={district} value={district}>{district}</option>
+                                          ))}
+                                        </select> 
 
                                         <div className="mb-3">
                                         <button type="submit" className="update-btn">Update</button>

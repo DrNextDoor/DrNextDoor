@@ -7,10 +7,10 @@ const Doctor = require('../models/Doctor');
 // Register a new doctor( This is an extra code, doctor registraion will be handled by admin only)
 const registerDoctor = async (req, res) => {
   try {
-    const { name, email, password, specialization, experience, bioMessage } = req.body;
+    const { name, email, password, specialization, experience, bioMessage,address } = req.body;
     const profileImage = req.file?.filename;
     
-    if (!name || !email || !password || !specialization || !experience || !bioMessage || !profileImage) {
+    if (!name || !email || !password || !specialization || !experience || !bioMessage || !profileImage || !address) {
       return res.status(400).send({ message: "All fields including profile image are required" });
     }
 
@@ -34,7 +34,8 @@ const registerDoctor = async (req, res) => {
       specialization,
       experience,
       bioMessage,
-      profileImage
+      profileImage,
+      address
     });
      //Hash the password
     const salt = await bcrypt.genSalt(10);

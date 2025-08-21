@@ -65,7 +65,7 @@ doctorRouter.get('/profile',authenticateToken, async (req, res) => {
     const doctor = await Doctor.findById(doctorId).select('-password'); // Exclude password from the result
     let modDoctor={
       ...doctor.toObject(),
-      profileImage:process.env.IMAGE_URL+doctor.profileImage
+      profileImage:process.env.DOCTOR_URL+doctor.profileImage
     }
     console.log(modDoctor.profileImage);
     

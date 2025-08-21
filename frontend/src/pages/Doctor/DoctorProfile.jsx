@@ -23,14 +23,12 @@ const DoctorProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        console.log(token);
         
         const res = await axios.get(`${API}/api/doctors/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res.data);
         
         setDoctor(res.data);
         setFormData({
@@ -40,9 +38,9 @@ const DoctorProfile = () => {
           bioMessage: res.data.bioMessage,
           profileImage: res.data.profileImage,
           appointments:res.data.appintments,
-          slots:res.data.slots
+          slots:res.data.slots,
+          address:{"State":res.data.address.State,"District":res.data.address.District}
         });
-        console.log(`${res.data.profileImage}`);
         
       } catch (err) {
         console.error("Error fetching doctor profile:", err);
@@ -74,7 +72,7 @@ const DoctorProfile = () => {
       }
 
       const res = await axios.put(
-        `https://dr-next-door.vercel.app/api/doctors/${doctor._id}`,
+        `${API}/api/doctors/${doctor._id}`,
         data,
         {
           headers: {
@@ -110,6 +108,7 @@ const DoctorProfile = () => {
             <p><strong>Specialization:</strong> {doctor.specialization}</p>
             <p><strong>Experience:</strong> {doctor.experience} years</p>
             <p><strong>Bio:</strong> {doctor.bioMessage}</p>
+            <p><strong>Address: </strong>{doctor.address.District},{doctor.address.State}</p>
             <p><strong>Appointments:</strong> </p>
             {doctor.appointments && Object.keys(doctor.appointments).length > 0 ? (
             <ul className="list-disc ml-6">

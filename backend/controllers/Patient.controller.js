@@ -25,13 +25,14 @@ const patientRegister=async(req,res)=>{
             return res.status(400).json({ message: "Email is already registered" });
         }
         const image = req.file?.filename || "default_patient.png";
+        const addr=JSON.parse(address)
 
         const patientData={
             name,
             email,
             password,
             image,
-            address
+            address:addr
         }
 
         const salt=await bcrypt.genSalt(10)

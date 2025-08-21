@@ -1,14 +1,19 @@
 import axios from 'axios'
 import React, { useRef, useState } from 'react'
-import { API } from '../../utils/utils.js'
+import { API,stateDistrictData } from '../../utils/utils.js'
+import { useAuth } from '../../context/AuthPatient.jsx'
 // import { useAuth } from '../context/AuthContext'
 
 const AddDoctor = () => {
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
 
+    const [state,setState]=useState("")
+    const [dist,setDist]=useState("")
+    const [dists,setDists]=useState([])
+
     // const { token } = useAuth()
-    const token = "your_token_here" // Replace with actual token or from context
+    const {adminToken} = useAuth() // Replace with actual token or from context
 
     const nameRef = useRef()
     const emailRef = useRef()
@@ -18,6 +23,13 @@ const AddDoctor = () => {
     const bioMessageRef = useRef()
     const approvedRef = useRef()
     const profileImageRef = useRef()
+
+    const handleStateChange=(e)=>{
+        const selectedState=e.target.value
+        setState(selectedState)
+        setDists(stateDistrictData[selectedState] || [])
+        setDist("")
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -32,17 +44,19 @@ const AddDoctor = () => {
         docData.append("experience", experienceRef.current.value)
         docData.append("bioMessage", bioMessageRef.current.value)
         docData.append("approved", approvedRef.current.value)
+        docData.append("address[State]", state);
+        docData.append("address[District]", dist);
 
         // Only try to append image if it's selected
         if (profileImageRef.current && profileImageRef.current.files.length > 0) {
             docData.append("profileImage", profileImageRef.current.files[0])
         }
-
+        
         try {
             const data = await axios.post(`${API}/admin/addDoctor`, docData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`
+                    'Authorization': `Bearer ${adminToken}`
                 }
             })
             console.log(data)
@@ -88,6 +102,18 @@ const AddDoctor = () => {
                                 <input type="text" className="form-control" ref={experienceRef} required />
                                 Doctor Bio Message :
                                 <input type="text" className="form-control" ref={bioMessageRef} required />
+                                <select value={state} onChange={handleStateChange}>
+                                <option value="">Select State</option>
+                                {Object.keys(stateDistrictData).map((selectState) => (
+                                    <option key={selectState} value={selectState}>{selectState}</option>
+                                ))}
+                                </select>                   
+                                <select value={dist} onChange={(e)=>setDist(e.target.value)}>
+                                <option value="">Select District</option>
+                                {dists.map((district) => (
+                                    <option key={district} value={district}>{district}</option>
+                                ))}
+                                </select> 
                                 Doctor Status :
                                 <select className="form-control" ref={approvedRef} required>
                                     <option value="approved">approved</option>
