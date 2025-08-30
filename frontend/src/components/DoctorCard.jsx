@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 const DoctorCard = ({doctor}) => {
 
     if (!doctor) return null;
-    let { _id, profileImage, name, specialization, location } = doctor
-    console.log(profileImage)
+    let { _id, profileImage, name, specialization, address } = doctor
 
   return (
     <>
@@ -14,7 +13,7 @@ const DoctorCard = ({doctor}) => {
         <div className="card-body">
             <h5 className="card-title">{name}</h5>
             <h4 className="card-title">{specialization}</h4>
-            <p className="card-text">Location: {location.State}, {location.District}</p>
+            <p className="card-text">Location: {address.State}, {address.District}</p>
             <Link to={`/admin/doctors/${_id}`} className="btn btn-primary">See Details</Link>
         </div>
       </div>

@@ -83,6 +83,15 @@ const Navbar = () => {
     );
   }
 
+  //for passing location to find doctors
+  const [loc,setLoc]=useState("")
+  const handleSearch=(e)=>{
+    e.preventDefault()
+    if(!loc.trim)
+      return
+    navigate(`/searchDoc/${loc}`)
+  }
+
   return (
     <>
       <style>
@@ -126,11 +135,13 @@ const Navbar = () => {
               )}
             </ul>
 
-            <form className="form-inline d-flex align-items-center p-2">
+            <form className="form-inline d-flex align-items-center p-2" onSubmit={handleSearch}>
               <input
                 className="form-control mr-2 custom-input"
                 type="search"
                 placeholder="Enter Location"
+                value={loc}
+                onChange={(e)=>setLoc(e.target.value)}
                 style={{
                   width: '300px',
                   borderRadius: '8px',
@@ -138,7 +149,7 @@ const Navbar = () => {
                   color: 'black'
                 }}
               />
-              <button className="btn btn-outline-primary" type="submit">Search</button>
+              <button className="btn btn-outline-primary" type='submit'>Search</button>
             </form>
 
             <div className="ms-auto d-flex align-items-center gap-4 mx-3">

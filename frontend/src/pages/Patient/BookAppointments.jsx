@@ -119,6 +119,7 @@ const BookAppointments = () => {
         <p><strong>Name:</strong> {doctor.name}</p>
         <p><strong>Email:</strong> {doctor.email}</p>
         <p><strong>Degree:</strong> {doctor.degree}</p>
+        <p><strong>Address:</strong>{doctor.address.District}, {doctor.address.State}</p>
         <p><strong>Specialization:</strong> {doctor.specialization}</p>
         <p><strong>Experience:</strong> {doctor.experience}</p>
         <p><strong>Bio:</strong> {doctor.bioMessage}</p>

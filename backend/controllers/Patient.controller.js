@@ -139,6 +139,7 @@ async function getDrById(req, res){
     }
 }
 
+//to book appointment
 async function bookAppointment(req,res){
     try{
         const {doctorId,date,slot}=req.body
@@ -165,6 +166,7 @@ async function bookAppointment(req,res){
     }
 }
 
+//to get appointments
 async function myAppointments(req,res){
     const patientId=req.patientId
     try{
@@ -196,6 +198,34 @@ const deleteAppointment = async (req, res) => {
   }
 };
 
+//to search doctors by state and district
+async function searchDoctor(req,res){
+    let {addr}=req.query;        
+    if(!addr){
+        return res.status(400).json({message:"Address is required"})
+    }
+    try{
+        const doc=await Doctor.find({
+            $or:[
+            {"address.State":{$regex:addr,$options:'i'}},
+            {"address.District":{$regex:addr,$options:'i'}}
+            ]})
+        if(doc.length===0){
+            return res.status(404).json({message:`No doctors found in ${addr}`})
+        }
+        let modDoc=doc.map(doctor=>(
+            {
+                ...doctor.toObject(),
+                profileImage:process.env.DOCTOR_URL+doctor.profileImage
+            }
+        ))        
+        res.status(200).send(modDoc)
+    }
+    catch(error){
+        res.status(400).send({"message":error.message})
+    }
+}
+
 module.exports={patientRegister,
     patientLogin,
     getPatientData,
@@ -204,5 +234,6 @@ module.exports={patientRegister,
     getDrById,
     bookAppointment,
     myAppointments,
-    deleteAppointment
+    deleteAppointment,
+    searchDoctor
 }

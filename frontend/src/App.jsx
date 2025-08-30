@@ -40,7 +40,7 @@ import AboutUs from './pages/About';
 
 import AskQuestion from './pages/AskQuestion';
 import QuestionList from './components/QuestionList'; 
-
+import DoctorsSearched from './pages/DoctorsSearched';
 
 
 const App = () => {
@@ -53,6 +53,7 @@ const App = () => {
         {path:"/contact",element:<Contact/>},
         {path:"/query",element:<AskQuestion/>},
         {path:"/questions",element:<QuestionList/>},
+        {path:"/searchDoc/:loc",element:<DoctorsSearched/>},
 
         //doctor routes
         {path:"/doctorLogin",element:<DoctorLogin/>},
@@ -84,4 +85,4 @@ const App = () => {
     </AuthProvider>
   ) 
 }
-export default App
+export default App

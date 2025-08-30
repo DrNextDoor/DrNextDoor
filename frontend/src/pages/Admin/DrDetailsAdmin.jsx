@@ -80,6 +80,7 @@ const DrDetailsAdmin = () => {
         <p><strong>Specialty:</strong> {doctor.specialty}</p>
         <p><strong>Experience:</strong> {doctor.experience}</p>
         <p><strong>Bio:</strong> {doctor.bioMessage}</p>
+        <p><strong>Address: </strong>{doctor.address.District}, {doctor.address.State}</p>
 
         {doctor.approved !== 'approved' ? (
         <>

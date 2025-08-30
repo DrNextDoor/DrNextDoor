@@ -7,8 +7,30 @@ const jwt = require('jsonwebtoken')
 
 async function addDoctor(req, res) {
     try {
-        let newDr = req.body;  // Extract doctor data
-        let Dr = await Doctor.create(newDr);  // Save to database
+        let {name,email,password,specialization,experience,bioMessage,approved,appointments,address,slots} = req.body;  // Extract doctor data
+        const image = req.file?.filename
+        const existingDoctor = await Doctor.findOne({ email });
+        if (existingDoctor) {
+            return res.status(400).json({ message: "Email is already registered" });
+        }
+        const doctorData={
+            name,
+            email,
+            password,
+            specialization,
+            experience,
+            bioMessage,
+            approved,
+            appointments,
+            address,
+            slots,
+            profileImage:image
+        }
+
+        const salt=await bcrypt.genSalt(10)
+        doctorData.password=await bcrypt.hash(password,salt)
+
+        let Dr = await Doctor.create(doctorData);  // Save to database
         res.status(201).send(Dr);
     } catch (error) {
         res.status(400).send({ "message": error.message });

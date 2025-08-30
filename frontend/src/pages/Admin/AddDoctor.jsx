@@ -50,7 +50,7 @@ const AddDoctor = () => {
         // Only try to append image if it's selected
         if (profileImageRef.current && profileImageRef.current.files.length > 0) {
             docData.append("profileImage", profileImageRef.current.files[0])
-        }
+        }        
         
         try {
             const data = await axios.post(`${API}/admin/addDoctor`, docData, {
