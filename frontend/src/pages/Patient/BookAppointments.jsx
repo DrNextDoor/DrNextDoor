@@ -102,6 +102,25 @@ const BookAppointments = () => {
           .doc-info{
             color:white
           }
+            @media (max-width: 768px) {
+            .doc-img {
+              height: 200px;
+              width: 200px;
+            }
+            .title {
+              font-size: 24px;
+            }
+          }
+
+          @media (max-width: 576px) {
+            .doc-img {
+              height: 150px;
+              width: 150px;
+            }
+            .doc-info {
+              font-size: 16px;
+            }
+          }
       `}
     </style>
     <h2 className='title'>Doctor Details</h2>

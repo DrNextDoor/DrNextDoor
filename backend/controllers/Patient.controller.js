@@ -206,6 +206,7 @@ async function searchDoctor(req,res){
     }
     try{
         const doc=await Doctor.find({
+            approved:"approved",
             $or:[
             {"address.State":{$regex:addr,$options:'i'}},
             {"address.District":{$regex:addr,$options:'i'}}
