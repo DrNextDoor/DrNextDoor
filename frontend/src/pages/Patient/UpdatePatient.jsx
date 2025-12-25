@@ -25,7 +25,7 @@ const UpdateProfile = () => {
   const [dist,setDist]=useState("")
   const [dists,setDists]=useState([])
 
-   const handleStateChange=(e)=>{
+  const handleStateChange=(e)=>{
     const selectedState=e.target.value
     setState(selectedState)
     setDists(stateDistrictData[selectedState] || [])
@@ -71,17 +71,17 @@ const UpdateProfile = () => {
     setMessage("")
 
     const formData = new FormData();
-  formData.append("name", nameRef.current.value);
-  formData.append("email", emailRef.current.value);
-  formData.append("gender", genderRef.current.value);
-  formData.append("dob", dobRef.current.value);
-  formData.append("phone", phoneRef.current.value);
-  formData.append("address[State]", state);
-  formData.append("address[District]", dist);
-  const fileInput = document.getElementById("profileImage");
-  if (fileInput.files[0]) {
-    formData.append("image", fileInput.files[0]);
-  }
+    formData.append("name", nameRef.current.value);
+    formData.append("email", emailRef.current.value);
+    formData.append("gender", genderRef.current.value);
+    formData.append("dob", dobRef.current.value);
+    formData.append("phone", phoneRef.current.value);
+    formData.append("address[State]", state);
+    formData.append("address[District]", dist);
+    const fileInput = document.getElementById("profileImage");
+    if (fileInput.files[0]) {
+      formData.append("image", fileInput.files[0]);
+    }
 
     try {
       
@@ -102,160 +102,240 @@ const UpdateProfile = () => {
   if (!patient) return <p>Loading...</p>;
 
   return (
-    <>
+  <>
     <style>
-                {`
-                  .myImg{
-                    object-fit: cover;
-                    border-radius: 50%;
-                  }
-                    
-                    .patient-login-card {
-                        background: rgba(0, 0, 0, 0.6);
-                        color: white;
-                        padding: 10px 40px;
-                        border-radius: 20px;
-                        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-                        max-width: 520px;
-                        width: 100%;
-                        height: 570px;
-                        animation: fadeIn 0.5s ease-in-out;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        margin-top:-90px
-                    }
+    {`
+      body {
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
 
-                    .form-control {
-                        border: 1px solid #333;
-                        color: white;
-                        height: 45px;
-                        font-size: 16px;
-                        background-color:transparent;
-                        border: 0px;
-                    }
+      .page-wrapper {
+        min-height: calc(100vh - 70px);
+        display: flex;
+        align-items: center;
+      }
 
-                    .form-control::placeholder {
-                        color: #bbb;
-                    }
+      .myImg {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 75%;
+        cursor: pointer;
+      }
 
-                    .update-btn {
-                        width: 100%;
-                        background-color: white;
-                        color: black;
-                        font-weight: bold;
-                        border: none;
-                        border-radius: 10px;
-                        transition: all 0.3s ease;
-                        font-size:20px;
-                        border-radius: 5px;
-                    }
+      .patient-login-card {
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 18px 28px;
+        border-radius: 20px;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+        max-width: 520px;
+        width: 100%;
+        animation: fadeIn 0.5s ease-in-out;
+      }
 
-                    .update-btn:hover {
-                        color: #e6e6e6;
-                        background-color:grey
-                    }
+      .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
 
-                    .message-text {
-                        color: #ff4d4d;
-                        text-align: center;
-                        margin-top: 10px;
-                        font-weight: bold;
-                    }
+      .form-row label {
+        width: 110px;
+        margin-right: 10px;
+      }
 
-                    @keyframes fadeIn {
-                        from {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                `}
-            </style>
-      <div className="container-fluid row"> 
-                      <div className="row align-items-center">
-                        <div style={{width:"50%"}} className="col-md-6">
-                            {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"80%"}} className="myImg rounded-full mt-2" />}
-                        </div>
-                        <div className="col-md-5 d-flex justify-content-center align-items-center" >
-                              <div className="patient-login-card mt-5">
-                                  <div>
-                                      <div className="text-center mb-4">
-                                          <FaHospitalUser size={40} style={{ color: 'white' }} />
-                                          <h2 className="mt-2">Edit your profile</h2>
-                                      </div>
-      
-                                      {message && <p className="message-text">{message}</p>}
-                                      <form onSubmit={handleSubmit} className="form-control">
+      .form-row input,
+      .form-row select {
+        flex: 1;
+        height: 32px;
+        padding: 4px 8px;
+        background: transparent;
+        border: 1px solid #555;
+        color: white;
+      }
 
-                                      <div className="mb-3">
-                                        <label>Name: </label>
-                                        <input ref={nameRef} />
-                                      </div>
+      .form-row select option {
+        background-color: #555;   /* grey background */
+        color: white;
+      }
 
-                                      <div className="mb-3">
-                                        <label>Email: </label>
-                                        <input ref={emailRef} />
-                                      </div>
- 
-                                        <div className="mb-3">
-                                        <label>Gender: </label>
-                                        <select ref={genderRef}>
-                                          <option value="">Select</option>
-                                          <option value="male">Male</option>
-                                          <option value="female">Female</option>
-                                        </select>
-                                        </div>
+      .update-btn {
+        width: 100%;
+        background: white;
+        color: black;
+        font-weight: bold;
+        font-size: 20px;
+        border-radius: 6px;
+        border: none;
+        padding: 5px;
+      }
 
+      .update-btn:hover {
+        background: #ccc;
+      }
 
-                                        <div className="mb-3">
-                                        <label>DOB: </label>
-                                        <input type="date" ref={dobRef} />
-                                        </div>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @media (max-width: 768px) {
+        .page-wrapper {
+          padding: 20px 10px;
+        }
 
-                                        <div className="mb-3">
-                                        <label>Profile: </label>
-                                        <input type="file" id="profileImage"/>
-                                        </div>
+        .row.w-100 {
+          flex-direction: column;
+        }
 
-                                        <div className="mb-3">
-                                        <label>Phone: </label>
-                                        <input ref={phoneRef} type="number"/>
-                                        </div>
+        .myImg {
+          width: 160px;
+          margin-bottom: 20px;
+        }
 
-                                        <select value={state} onChange={handleStateChange}>
-                                        <option value="">Select State</option>
-                                          {Object.keys(stateDistrictData).map((selectState) => (
-                                          <option key={selectState} value={selectState}>{selectState}</option>
-                                          ))}
-                                        </select>   
+        .patient-login-card {
+          padding: 16px;
+          border-radius: 15px;
+        }
 
-                                        <select value={dist} onChange={(e)=>setDist(e.target.value)}>
-                                          <option value="">Select District</option>
-                                          {dists.map((district) => (
-                                          <option key={district} value={district}>{district}</option>
-                                          ))}
-                                        </select> 
+        .form-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
 
-                                        <div className="mb-3">
-                                        <button type="submit" className="update-btn">Update</button>
-                                        </div>
+        .form-row label {
+          width: 100%;
+          margin-bottom: 4px;
+          font-size: 14px;
+        }
 
-                                      </form>
-                                      
-                                  </div>
-                                  <div className="text-center" style={{ fontSize: "12px", color: "#aaa" }}>
-                                      © 2025 DrNextDoor • All rights reserved
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-    </>
-    
+        .form-row input,
+        .form-row select {
+          width: 100%;
+          height: 38px;
+        }
+
+        .update-btn {
+          font-size: 18px;
+          padding: 10px;
+        }
+      }
+      @media (min-width: 769px) and (max-width: 992px) {
+        .myImg {
+          width: 60%;
+        }
+
+        .patient-login-card {
+          max-width: 480px;
+        }
+      }
+    `}
+    </style>
+
+    <div className="container page-wrapper">
+      <div className="row w-100 align-items-center">
+        <div className="col-md-6 text-center mb-4 mb-md-0">
+          <input
+            type="file"
+            id="profileImage"
+            accept="image/*"
+            hidden
+            onChange={(e) => {
+              if (e.target.files[0]) {
+                const preview = URL.createObjectURL(e.target.files[0]);
+                setPatient({ ...patient, image: preview });
+              }
+            }}
+          />
+
+          <img
+            src={patient.image}
+            alt="Profile"
+            className="myImg"
+            title="Click to change profile picture"
+            onClick={() => document.getElementById("profileImage").click()}
+          />
+        </div>
+
+        <div className="col-md-6 d-flex justify-content-center">
+          <div className="patient-login-card">
+            <div className="text-center mb-3">
+              <FaHospitalUser size={40} />
+              <h2 className="mt-2">Edit your profile</h2>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-row">
+                <label>Name</label>
+                <input ref={nameRef} />
+              </div>
+
+              <div className="form-row">
+                <label>Email</label>
+                <input ref={emailRef} />
+              </div>
+
+              <div className="form-row">
+                <label>Gender</label>
+                <select ref={genderRef}>
+                  <option value="">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+
+              <div className="form-row">
+                <label>DOB</label>
+                <input type="date" ref={dobRef} />
+              </div>
+
+              <div className="form-row">
+                <label>Phone</label>
+                <input type="number" ref={phoneRef} />
+              </div>
+
+              <div className="form-row">
+                <label>State</label>
+                <select value={state} onChange={handleStateChange}>
+                <option value="">Select</option>
+                  {Object.keys(stateDistrictData).map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-row">
+                <label>District</label>
+                <select value={dist} onChange={(e) => setDist(e.target.value)}>
+                  <option value="">Select</option>
+                  {dists.map(d => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="form-row">
+                <button className="update-btn" type="submit">
+                  {loading ? "Updating..." : "Update"}
+                </button>
+              </div>
+            </form>
+
+            <div className="text-center mt-3" style={{ fontSize: "12px", color: "#aaa" }}>
+              © 2025 DrNextDoor • All rights reserved
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </>
   );
 };
 

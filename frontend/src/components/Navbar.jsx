@@ -87,7 +87,7 @@ const Navbar = () => {
   const [loc,setLoc]=useState("")
   const handleSearch=(e)=>{
     e.preventDefault()
-    if(!loc.trim)
+    if(!loc.trim())
       return
     navigate(`/searchDoc/${loc}`)
   }
@@ -109,9 +109,22 @@ const Navbar = () => {
             border-radius: 4px;
             padding: 5px;
           }
+            
+          @media (max-width: 768px) {
+            .navbar-nav {
+              text-align: center;
+            }
+            .form-control {
+              width: 100% !important;
+            }
+            .dropdown-menu-custom {
+              right: 0;
+              left: auto;
+              min-width: 180px;
+            }
+          }
         `}
       </style>
-
       <nav className="navbar navbar-expand-lg bg-dark text-light" data-bs-theme="dark">
         <div className="container-fluid">
           <Link className="navbar-brand fs-2" to="/">DrNextDoor</Link>
@@ -121,7 +134,7 @@ const Navbar = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav mx-3">
+            <ul className="navbar-nav mx-lg-3 gap-2">
               {authLinks}
               { !adminToken &&(
                 <>
@@ -134,20 +147,16 @@ const Navbar = () => {
               </>
               )}
             </ul>
-
-            <form className="form-inline d-flex align-items-center p-2" onSubmit={handleSearch}>
+            <form 
+              className="d-flex flex-column flex-lg-row align-items-stretch align-items-lg-center gap-2 p-2 w-100 w-lg-auto"
+              onSubmit={handleSearch}
+            >
               <input
-                className="form-control mr-2 custom-input"
+              className="form-control custom-input w-100 w-lg-auto"
                 type="search"
                 placeholder="Enter Location"
                 value={loc}
                 onChange={(e)=>setLoc(e.target.value)}
-                style={{
-                  width: '300px',
-                  borderRadius: '8px',
-                  backgroundColor: 'white',
-                  color: 'black'
-                }}
               />
               <button className="btn btn-outline-primary" type='submit'>Search</button>
             </form>

@@ -69,11 +69,23 @@ const PatientProfile = () => {
           .myImg{
             object-fit: cover;
             border-radius: 50%;
+            max-width: 100%;
+            height: auto;
           }
           .edit{
             padding:10px;
           }
-            @keyframes fadeIn {
+          .profile-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 20px;
+          }
+          .profile-left, .profile-right {
+            flex: 1 1 45%;
+            width: auto; 
+          }
+          @keyframes fadeIn {
             from {
               opacity: 0;
               transform: translateY(30px);
@@ -83,25 +95,57 @@ const PatientProfile = () => {
               transform: translateY(0);
             }
           }
+          @media (max-width: 768px) {
+            .profile-container {
+              flex-direction: column;
+              align-items: center;
+            }
+            .profile-left, .profile-right {
+              flex: 1 1 100%;
+            }
+            .patient-profile {
+              padding: 30px 20px;
+            }
+            .appt-title {
+              font-size: 26px;
+            }
+            .patient-profile p {
+              font-size: 16px;
+            }
+          }
+          @media (max-width: 480px) {
+            .appt-title {
+              font-size: 22px;
+            }
+            .patient-profile {
+              padding: 20px 15px;
+            }
+            .patient-profile p {
+              font-size: 14px;
+            }
+            .edit {
+              padding: 8px;
+            }
+          }
         `}
       </style>
-    <h2 className="appt-title">My Profile</h2>
-    <div className="p-4" style={{display:"flex",flexDirection:"row"}}>
-      <div style={{width:"50%"}}>
-        {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"80%"}} className="myImg rounded-full mt-2" />}
+      <h2 className="appt-title">My Profile</h2>
+      <div className="p-4 profile-container">
+        <div className="profile-left">
+          {patient.image && <img src={`${patient.image}`} alt="Profile" style={{width:"80%"}} className="myImg rounded-full mt-2" />}
+        </div>
+        <div className='patient-profile text-light rounded-5 p-4 profile-right'>
+          <p><strong>Hello {patient.name}!!</strong></p>
+          <p><strong>Email: </strong> {patient.email}</p>
+          <p><strong>Gender: </strong>{patient.gender}</p>
+          <p><strong>Date of birth: </strong>{patient.dob}</p>
+          <p><strong>Address: </strong>{patient.address.District},{patient.address.State}</p>
+          <p><strong>Phone no: </strong>{patient.phone}</p>
+          <button className="edit btn btn-dark" onClick={()=>navigate('/updateProfile')}>
+              Edit your profile
+          </button>
+        </div>
       </div>
-      <div className='patient-profile text-light rounded-5 p-4' style={{width:"50%"}}>
-        <p><strong>Hello {patient.name}!!</strong></p>
-        <p><strong>Email: </strong> {patient.email}</p>
-        <p><strong>Gender: </strong>{patient.gender}</p>
-        <p><strong>Date of birth: </strong>{patient.dob}</p>
-        <p><strong>Address: </strong>{patient.address.District},{patient.address.State}</p>
-        <p><strong>Phone no: </strong>{patient.phone}</p>
-        <button className="edit btn btn-dark" onClick={()=>navigate('/updateProfile')}>
-            Edit your profile
-        </button>
-      </div>
-    </div>
     </div>
   )
 }

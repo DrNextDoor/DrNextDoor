@@ -19,9 +19,6 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 
 const Home = () => {
-
-  
-
       const doctors = [
         {
           image: gyno,
@@ -95,73 +92,50 @@ const Home = () => {
   return (
     <>
       <style>
-        {`
-            .scroll-wrapper {
-              overflow-x: scroll;
-              display : flex;
-              flex-wrap: nowrap;
-              white-space: nowrap;
-              padding-bottom: 1rem;
-              scroll-behavior: smooth;
-              width: 100px,
-            }
+      {`
+        .scroll-wrapper {
+          display: flex;
+          gap: 1rem;
+          overflow-x: auto;
+          padding-bottom: 1rem;
+          scroll-behavior: smooth;
+        }
 
-            @media (max-width: 500px) {
+        .scroll-wrapper::-webkit-scrollbar {
+          display: none;
+        }
 
-                .card-img-top {
-                  height: 140px !important; /* Smaller image on phones */
-                }
+        .card {
+          min-width: 250px;
+        }
 
-                .scroll-wrapper {
-                  overflow-x: auto !important;
-                  -webkit-overflow-scrolling: touch;
-                  scroll-behavior: smooth;
-                }
+        .section-img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 20px;
+        }
 
-                .scroll-wrapper::-webkit-scrollbar {
-                  display: none; /* Optional: hide scrollbar for cleaner look */
-                }
+        .section {
+          border-radius: 30px;
+        }
 
-              .div2 {
-                    flex-direction: column !important;
-                    height: auto !important;
-                    border-radius: 20px !important; /* Slightly rounded corners */
-                    padding: 20px !important;
-                    text-align: center;
-              }
+        @media (max-width: 768px) {
+          .section {
+            flex-direction: column !important;
+            text-align: center;
+            padding: 20px !important;
+          }
+          .section img {
+            margin-bottom: 20px;
+          }
 
-              .div2 img {
-                margin-right: 0 !important;
-                max-width: 100% !important;
-                border-radius: 20px !important;
-                margin-bottom: 20px;
-              }
-
-              .div2 .text-start {
-                text-align: center !important;
-              }
-
-              .div3 {
-                  flex-direction: column !important;
-                  height: auto !important;
-                  border-radius: 20px !important;
-                  padding: 20px !important;
-                  text-align: center;
-                }
-
-                .div3 img {
-                  width: 100% !important;
-                  height: auto !important;
-                  border-radius: 20px !important;
-                  margin-bottom: 20px;
-                }
-
-                .div3 .text-start {
-                  text-align: center !important;
-                }
-            }
-        `}
+          .section .text-start {
+            text-align: center !important;
+          }
+        }
+      `}
       </style>
+
 
       <Header />
           <br />
@@ -191,43 +165,42 @@ const Home = () => {
   
         
         {/* 2nd big div */}
-        <div className="div2 d-flex justify-content-between align-items-center px-5 py-4 m-3 rounded-pill bg-dark text-white" id="div2" style={{ height: '400px' }}>
-                <div>
-                  <img
-                    src={home2}
-                    alt=""
-                    style={{ maxWidth: '450px', height: 'auto', borderRadius: '120px', marginRight: '50px' }}
-                  />
-                </div>
+        <div className="section d-flex align-items-center bg-dark text-white p-4 m-3">
+        <img
+          src={home2}
+          alt=""
+          className="section-img me-md-5"
+          style={{ maxWidth: "400px" }}
+        />
 
-                <div className="text-start">
-                  <h2 className="fw-bold"> Your health A to Z </h2><br />
-                  <p className="text-white-50" style={{ fontSize: '18px' }}>
-                  Easy–to–understand health information to help you be ready for your appointment.<br />
-                  <br />
-                  Learn what you need to know about symptoms, diagnosis, and treatment options to discuss with your doctor. From major surgery to routine procedures, find out what to expect and how to prepare for a successful outcome.
-                  </p>
-                </div>
-              </div>
+        <div className="text-start">
+        <h2 className="fw-bold">Your health A to Z</h2>
+        <p className="text-white-50 fs-5">
+          Easy–to–understand health information to help you be ready for your appointment.
+          <br /><br />
+          Learn about symptoms, diagnosis, and treatment options before meeting your doctor.
+        </p>
+        </div>
+        </div>
+
 
           {/* 3rd big div */}
-            <div className="div3 d-flex flex-row-reverse align-items-center px-5 py-4 m-2 rounded-pill bg-dark text-white" style={{ height: '400px' }}>
-              <div>
-                <img
-                  src={home3}
-                  alt=""
-                  style={{ width: '90%', height: '100%', borderRadius: '100px' }}
-                />
-              </div>
-
-              <div className="text-start">
-                <h2 className="fw-bold">Reach more patients</h2><br />
-                <p className="text-white-50" style={{ fontSize: '18px' }}>
-                  Doctors who claim their free Healthgrades profile connect with the right patients 2x more.<br />
-                  Your future patients are ready to connect. Make sure your profile stands out. Learn more about how to claim your free Healthgrades profile and our available upgrades.
-                </p>
-              </div>
+            <div className="section d-flex flex-row-reverse align-items-center bg-dark text-white p-4 m-3">
+            <img
+              src={home3}
+              alt=""
+              className="section-img ms-md-5"
+              style={{ maxWidth: "400px" }}
+            />
+            <div className="text-start">
+              <h2 className="fw-bold">Reach more patients</h2>
+              <p className="text-white-50 fs-5">
+                Doctors who claim their free profile connect with patients 2x more.
+                <br />
+                Make sure your profile stands out and reaches the right audience.
+              </p>
             </div>
+          </div>
     </>
   )
 }

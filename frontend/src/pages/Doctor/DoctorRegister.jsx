@@ -85,61 +85,58 @@ const DoctorRegister = () => {
   }, []);
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-      minHeight: '90vh',
-      padding: '50px'
-    }}>
-      <div className="doctor-register-card">
-        <div style={{ textAlign: 'center', marginBottom: '10px' }}>
-          <FaUserMd size={40} style={{ color: 'white' }} />
+    <div className="container-fluid">
+      <div
+        className="row align-items-center justify-content-center justify-content-lg-end"
+        style={{ minHeight: "100vh" }} 
+      >
+        <div className="col-lg-5 col-md-7 col-sm-12 pe-lg-5">
+          <div className="doctor-register-card">
+            <div style={{ textAlign: 'center', marginBottom: '10px' }}>
+              <FaUserMd size={40} style={{ color: 'white' }} />
+            </div>
+            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Doctor Registration</h2>
+            {message && <p className="message-text">{message}</p>}
+            <form onSubmit={handleSubmit}>
+              <input className="form-control" name="name" placeholder="Name" onChange={handleChange} required />
+              <input className="form-control" name="email" placeholder="Email" type="email" onChange={handleChange} required />       
+              <input className="form-control" name="password" placeholder="Password" type="password" onChange={handleChange} required />
+              <input className="form-control" name="specialization" placeholder="Specialization" onChange={handleChange} required />
+              <select 
+                value={state} 
+                onChange={handleStateChange}
+                className="form-control" 
+                style={{ color: "#a7a5a5ff", backgroundColor: "#111" }}
+              >
+                <option value="">Select State</option>
+                {Object.keys(stateDistrictData).map((selectState) => (
+                <option key={selectState} value={selectState}>{selectState}</option>
+                ))}
+              </select>                   
+              <select 
+                value={dist} 
+                onChange={(e)=>setDist(e.target.value)}
+                className="form-control"
+                style={{ color: "#a7a5a5ff", backgroundColor: "#111" }}
+              >
+                <option value="">Select District</option>
+                {dists.map((district) => (
+                <option key={district} value={district}>{district}</option>
+                ))}
+              </select>
+              <input className="form-control" name="experience" placeholder="Experience" type="number" onChange={handleChange} required />
+              <textarea className="form-control" name="bioMessage" placeholder="Bio" onChange={handleChange} required />
+              <input className="form-control" type="file" onChange={handleFileChange} required />
+              <button className="login-btn" type="submit" disabled={loading}>
+                {loading ? 'Submitting...' : 'Submit'}
+              </button>
+            </form>
+          </div>
         </div>
-        <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Doctor Registration</h2>
-        {message && <p className="message-text">{message}</p>}
-        <form onSubmit={handleSubmit}>
-          <input className="form-control" name="name" placeholder="Name" onChange={handleChange} required />
-          <input className="form-control" name="email" placeholder="Email" type="email" onChange={handleChange} required />
-          <select value={state} onChange={handleStateChange}>
-            <option value="">Select State</option>
-            {Object.keys(stateDistrictData).map((selectState) => (
-            <option key={selectState} value={selectState}>{selectState}</option>
-            ))}
-          </select>                   
-          <select value={dist} onChange={(e)=>setDist(e.target.value)}>
-            <option value="">Select District</option>
-            {dists.map((district) => (
-            <option key={district} value={district}>{district}</option>
-            ))}
-          </select> 
-          <input className="form-control" name="password" placeholder="Password" type="password" onChange={handleChange} required />
-          <input className="form-control" name="specialization" placeholder="Specialization" onChange={handleChange} required />
-          
-         <select className="form-control" name="state" value={formData.state} onChange={handleChange} required>
-            <option value="">Select State</option>
-            {Object.keys(stateDistrictData).map((state) => (
-              <option key={state} value={state}>{state}</option>
-            ))}
-          </select>
-
-          <select className="form-control" name="district" value={formData.district} onChange={handleChange} required>
-            <option value="">Select District</option>
-            {dists.map((district) => (
-              <option key={district} value={district}>{district}</option>
-            ))}
-          </select>
-
-          <input className="form-control" name="experience" placeholder="Experience" type="number" onChange={handleChange} required />
-          <textarea className="form-control" name="bioMessage" placeholder="Bio" onChange={handleChange} required />
-          <input className="form-control" type="file" onChange={handleFileChange} required />
-          <button className="login-btn" type="submit" disabled={loading}>
-            {loading ? 'Submitting...' : 'Submit'}
-          </button>
-        </form>
       </div>
 
-      <style>{`
+      <style>
+      {`
         .doctor-register-card {
           background: rgba(0, 0, 0, 0.7);
           color: white;
@@ -147,26 +144,20 @@ const DoctorRegister = () => {
           border-radius: 20px;
           box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
           max-width: 500px;
-          width: 90%;
+          width: 100%;
           animation: fadeIn 0.5s ease-in-out;
         }
-
-        .form-control {
+        .form-control,select {
           background-color: #121212;
           border: 1px solid #333;
           color: white;
           height: 45px;
           font-size: 16px;
-          margin-bottom: 15px;
-          padding: 10px;
-          border-radius: 8px;
-          width: 100%;
+          margin-bottom: 10px;
         }
-
         .form-control::placeholder {
           color: #bbb;
         }
-
         .login-btn {
           width: 100%;
           padding: 12px;
@@ -178,11 +169,9 @@ const DoctorRegister = () => {
           transition: all 0.3s ease;
           margin-top: 10px;
         }
-
         .login-btn:hover {
           background-color: #e6e6e6;
         }
-
         .message-text {
           color: #00ff99;
           text-align: center;
@@ -200,7 +189,27 @@ const DoctorRegister = () => {
             transform: translateY(0);
           }
         }
-      `}</style>
+          
+        @media (max-width: 768px) {
+          .patient-signup-card {
+            padding: 30px 20px;
+            height: auto;
+          }
+          .patient-signup-card h3 {
+            font-size: 20px;
+          }
+          .form-control,
+          select {
+            height: 40px;
+            font-size: 14px;
+          }
+          .signup-btn {
+            font-size: 14px;
+            padding: 10px;
+          }
+        }
+      `}
+      </style>
     </div>
   );
 };

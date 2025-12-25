@@ -47,107 +47,109 @@ const AdminLogin = () => {
   return (
     <>
         <style>
-                {`
-                    .admin-login-card {
-                        background: rgba(0, 0, 0, 0.6);
-                        color: white;
-                        padding: 30px 40px;
-                        border-radius: 20px;
-                        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-                        max-width: 520px;
-                        width: 100%;
-                        height: 350px;
-                        animation: fadeIn 0.5s ease-in-out;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        margin-top: 100px;
-                        margin-left : 55%;
-                    }
-
-                    .form-control {
-                        background-color: #121212;
-                        border: 1px solid #333;
-                        color: white;
-                        height: 45px;
-                        font-size: 16px;
-                    }
-
-                    .form-control::placeholder {
-                        color: #bbb;
-                    }
-
-                    .login-btn {
-                        width: 100%;
-                        padding: 12px;
-                        background-color: white;
-                        color: black;
-                        font-weight: bold;
-                        border: none;
-                        border-radius: 10px;
-                        transition: all 0.3s ease;
-                        margin-top: 10px;
-                    }
-
-                    .login-btn:hover {
-                        background-color: #e6e6e6;
-                    }
-
-                    .message-text {
-                        color: #ff4d4d;
-                        text-align: center;
-                        margin-top: 10px;
-                        font-weight: bold;
-                    }
-
-                    @keyframes fadeIn {
-                        from {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                `}
-            </style>
-
-      <div className="row">
-        <div className="col-md-6 mx-auto">
-            <div className="admin-login-card card">
-                    <div className="card-header">
-                        <h3>Admin Login</h3>
-                        <p>{message}</p>
-                    </div>
-                    <div className="card-body">
-                        <form method="post" onSubmit={handleSubmit}>
-                            <input
-                                type="email"
-                                className="form-control mb-2"
-                                placeholder="Email"
-                                ref = {emailRef}
-                                required
-                            />
-                            <input
-                                type="password"
-                                className="form-control mb-2"
-                                placeholder="Password"
-                                ref = {passwordRef}
-                                required
-                            />
-                            {!loading && (
+            {`
+            .admin-login-card {
+                background: rgba(0, 0, 0, 0.6);
+                color: white;
+                padding: 30px 40px;
+                border-radius: 20px;
+                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+                max-width: 520px;
+                width: 100%;
+                min-height: 350px;
+                animation: fadeIn 0.5s ease-in-out;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                margin-left: auto;
+                margin-right: 8%;
+            }
+            .form-control {
+                background-color: #121212;
+                border: 1px solid #333;
+                color: white;
+                height: 45px;
+                font-size: 16px;
+            }
+            .form-control::placeholder {
+                color: #bbb;
+            }
+            .login-btn {
+                width: 100%;
+                padding: 12px;
+                background-color: white;
+                color: black;
+                font-weight: bold;
+                border: none;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                margin-top: 10px;
+            }
+            .login-btn:hover {
+                background-color: #e6e6e6;
+            }
+            .message-text {
+                color: #ff4d4d;
+                text-align: center;
+                margin-top: 10px;
+                font-weight: bold;
+            }
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @media (max-width: 992px) {
+                .admin-login-card {
+                    margin: 40px auto;
+                    padding: 25px 20px;
+                }
+            }
+            `}
+        </style>
+        <div className="container-fluid">
+            <div className="row min-vh-100 align-items-center">
+                <div className="col-lg-6 d-none d-lg-block"></div>
+                <div className="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end">
+                    <div className="admin-login-card card">
+                        <div className="card-header">
+                            <h3>Admin Login</h3>
+                            <p>{message}</p>
+                        </div>
+                        <div className="card-body">
+                            <form method="post" onSubmit={handleSubmit}>
                                 <input
-                                    type="submit"
-                                    value="Login"
-                                    className="login-btn btn btn-primary"
+                                    type="email"
+                                    className="form-control mb-2"
+                                    placeholder="Email"
+                                    ref = {emailRef}
+                                    required
                                 />
-                            )}        
-                        </form>
+                                <input
+                                    type="password"
+                                    className="form-control mb-2"
+                                    placeholder="Password"
+                                    ref = {passwordRef}
+                                    required
+                                />
+                                {!loading && (
+                                    <input
+                                        type="submit"
+                                        value="Login"
+                                        className="login-btn btn btn-primary"
+                                    />
+                                )}        
+                            </form>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
     </>
   )
 }

@@ -119,12 +119,49 @@ const Login = () => {
                             transform: translateY(0);
                         }
                     }
+                    @media (max-width: 991px) {
+                        .patient-login-card {
+                            padding: 30px 20px;
+                            max-width: 420px;
+                        }
+                    }
+
+                    @media (max-width: 767px) {
+                        .patient-login-card {
+                            padding: 25px 15px;
+                            width: 90%;
+                            height: auto;
+                        }
+
+                        .forgot-link {
+                            text-align: center;
+                        }
+
+                        .container-fluid {
+                            padding: 0 10px;
+                        }
+                    }
+
+                    @media (max-width: 575px) {
+                        .patient-login-card h2 {
+                            font-size: 22px;
+                        }
+
+                        .patient-login-card p {
+                            font-size: 13px;
+                        }
+
+                        .login-btn {
+                            padding: 10px;
+                            font-size: 14px;
+                        }
+                    }
                 `}
             </style>
 
             <div className="container-fluid">
                 <div className="row align-items-center" style={{ height: "87vh" }}>
-                    <div className="col-md-7"></div>
+                    <div className="col-md-7 d-none d-md-block"></div>
                     <div className="col-md-5 d-flex justify-content-center align-items-center">
                         <div className="patient-login-card">
                             <div>

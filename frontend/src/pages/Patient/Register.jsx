@@ -58,7 +58,7 @@ const Register = () => {
 
         await axios.post(`${API}/patient/register`, formData, config)
 
-            setMessage("Account Created")
+            setMessage("Account Created Successfully!! Please Login.")
             nameRef.current.value = ""
             emailRef.current.value = ""
             setPassword("")
@@ -97,113 +97,145 @@ const Register = () => {
     return (
         <>
         <style>
-                {`
+            {`
+                .patient-signup-card {
+                    background: rgba(0, 0, 0, 0.6);
+                    color: white;
+                    padding: 60px 40px;
+                    border-radius: 20px;
+                    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+                    max-width: 520px;
+                    width: 100%;
+                    animation: fadeIn 0.5s ease-in-out;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                }
+
+                .form-control,select {
+                    background-color: #121212;
+                    border: 1px solid #333;
+                    color: white;
+                    height: 45px;
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                }
+                .form-control::placeholder{
+                    color: #bbb;
+                }
+                .signup-btn {
+                    width: 100%;
+                    padding: 12px;
+                    background-color: white;
+                    color: black;
+                    font-weight: bold;
+                    border: none;
+                    border-radius: 10px;
+                    transition: all 0.3s ease;
+                }
+
+                .signup-btn:hover {
+                    color: #e6e6e6;
+                    background-color: grey;
+                }
+
+                .message-text {
+                    color: #1ded9aff;
+                    text-align: center;
+                    margin-top: 10px;
+                    font-weight: bold;
+                }
+                    
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(30px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @media (max-width: 768px) {
                     .patient-signup-card {
-                        background: rgba(0, 0, 0, 0.6);
-                        color: white;
-                        padding: 60px 40px;
-                        border-radius: 20px;
-                        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
-                        max-width: 520px;
-                        width: 100%;
-                        height: 600px;
-                        animation: fadeIn 0.5s ease-in-out;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
+                    padding: 30px 20px;
+                    height: auto;
                     }
 
-                    .form-control {
-                        background-color: #121212;
-                        border: 1px solid #333;
-                        color: white;
-                        height: 45px;
-                        font-size: 16px;
+                    .patient-signup-card h3 {
+                        font-size: 20px;
                     }
 
-                    .form-control::placeholder {
-                        color: #bbb;
+                    .form-control,
+                    select {
+                        height: 40px;
+                        font-size: 14px;
                     }
 
                     .signup-btn {
-                        width: 100%;
-                        padding: 12px;
-                        background-color: white;
-                        color: black;
-                        font-weight: bold;
-                        border: none;
-                        border-radius: 10px;
-                        transition: all 0.3s ease;
+                        font-size: 14px;
+                        padding: 10px;
                     }
-
-                    .signup-btn:hover {
-                        color: #e6e6e6;
-                        background-color: grey;
-
-                    }
-
-                    .message-text {
-                        color: #ff4d4d;
-                        text-align: center;
-                        margin-top: 10px;
-                        font-weight: bold;
-                    }
-
-                    
-                    @keyframes fadeIn {
-                        from {
-                            opacity: 0;
-                            transform: translateY(30px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                `}
+                }
+            `}
         </style>
-    <div className='row'>
-        <div className="col-md-6 mx-auto">
-            <div className="patient-signup-card card" style={{marginLeft:"50%",height:"93%"}}>
-                <div className="card-header">
-                    <div style={{display:"flex",justifyContent:"center"}}>
-                        <FaHospitalUser size={40} style={{ color: 'white' }} />
+        <div className="container-fluid">
+            <div
+                className="row align-items-center justify-content-center justify-content-lg-end"
+                style={{ minHeight: "100vh" }} 
+            >       
+                <div className="col-lg-5 col-md-7 col-sm-12 pe-lg-5">
+                <div className="patient-signup-card card mx-auto">
+                    <div className="card-header">
+                        <div style={{display:"flex",justifyContent:"center"}}>
+                            <FaHospitalUser size={40} style={{ color: 'white' }} />
+                        </div>
+                        <h3 className='text-center'>Welcome, Create an Account</h3>
+                        <p className='message-text'>{message}</p>
                     </div>
-                    <h3 className='text-center'>Welcome, Create an Account</h3>
-                    <p className='message-text'>{message}</p>
-                </div>
-                <div className="card-body">
-                    <form method="post" onSubmit={handleSubmit}>
-                        <input ref={nameRef} type='text' className='form-control mb-2' placeholder='Enter your Name' required /> 
-                        <input ref={emailRef} type='email' className='form-control mb-2' placeholder='Enter your email' required />
-                        <select value={state} onChange={handleStateChange}>
-                            <option value="">Select State</option>
-                            {Object.keys(stateDistrictData).map((selectState) => (
-                            <option key={selectState} value={selectState}>{selectState}</option>
-                            ))}
-                        </select>                   
-                        <select value={dist} onChange={(e)=>setDist(e.target.value)}>
-                            <option value="">Select District</option>
-                            {dists.map((district) => (
-                            <option key={district} value={district}>{district}</option>
-                            ))}
-                        </select> 
-                        <input type='password' className='form-control mb-2' 
-                            placeholder='Enter password'
-                            id="password"
-                            onChange={(e)=>{setPassword(e.target.value)}}
-                            required /> 
-                        <input type='password' className='form-control mb-2' 
-                            placeholder='Confirm password' 
-                            id="confirmPass"
-                            onChange={(e)=>confirmPassword(e.target.value)}
-                            required /> 
-                        {
-                            !loading && <input type='submit' value="Register" className='signup-btn btn btn-primary' />
-                        }
-                    </form>
-                    <div className="text-center" style={{ fontSize: "12px", color: "#aaa", marginTop: "10px" }}>
-                                © 2025 DrNextDoor • All rights reserved
+                    <div className="card-body">
+                        <form method="post" onSubmit={handleSubmit}>
+                            <input ref={nameRef} type='text' className='form-control mb-2' placeholder='Enter your Name' required /> 
+                            <input ref={emailRef} type='email' className='form-control mb-2' placeholder='Enter your email' required />
+                            <select 
+                                className="form-control" 
+                                value={state} 
+                                onChange={handleStateChange}
+                                style={{ color: "#a7a5a5ff", backgroundColor: "#111" }}
+                            >
+                                <option value="">Select State</option>
+                                {Object.keys(stateDistrictData).map((selectState) => (
+                                <option key={selectState} value={selectState}>{selectState}</option>
+                                ))}
+                            </select>                   
+                            <select className="form-control" 
+                                value={dist} 
+                                onChange={(e)=>setDist(e.target.value)}
+                                style={{ color: "#a7a5a5ff", backgroundColor: "#111" }}
+                            >
+                                <option value="">Select District</option>
+                                {dists.map((district) => (
+                                <option key={district} value={district}>{district}</option>
+                                ))}
+                            </select> 
+                            <input type='password' className='form-control mb-2' 
+                                placeholder='Enter password'
+                                id="password"
+                                onChange={(e)=>{setPassword(e.target.value)}}
+                                required /> 
+                            <input type='password' className='form-control mb-2' 
+                                placeholder='Confirm password' 
+                                id="confirmPass"
+                                onChange={(e)=>confirmPassword(e.target.value)}
+                                required /> 
+                            {
+                                !loading && <input type='submit' value="Register" className='signup-btn btn btn-primary' />
+                            }
+                        </form>
+                        <div className="text-center" style={{ fontSize: "12px", color: "#aaa", marginTop: "10px" }}>
+                                    © 2025 DrNextDoor • All rights reserved
+                        </div>
                     </div>
                 </div>
             </div>
